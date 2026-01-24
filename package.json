@@ -1,0 +1,23 @@
+{
+  "name": "nomads-hideaway",
+  "version": "1.0.0",
+  "description": "Nomads Hideaway - Sri Lanka Villa Booking Platform",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site - no build needed'",
+    "test": "echo 'No tests yet'"
+  },
+  "dependencies": {
+    "node-ical": "^0.13.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "villa",
+    "booking",
+    "sri-lanka",
+    "matara"
+  ],
+  "author": "Nomads Hideaway",
+  "license": "MIT"
+}

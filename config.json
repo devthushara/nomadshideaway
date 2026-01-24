@@ -1,0 +1,256 @@
+{
+  "villa": {
+    "name": "Nomads Hideaway",
+    "tagline": "Your Base Camp in the South",
+    "description": "Unlike isolated tourist hotels, Nomads Hideaway is located in a real Sri Lankan neighborhood. You get the peace of a private garden villa with unmatched connectivity.",
+    "fullDescription": "Priyanka and Lionel created Nomads Hideaway to share their love for Sri Lankan hospitality. Whether you need local tips or fresh fruit from the garden, they are here to make your stay unforgettable."
+  },
+  "location": {
+    "address": "87A Lumbini, Rahula Road, Matara 81000, Sri Lanka",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.005!2d80.540306!3d5.952389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae133f5b1b1b1b1%3A0x1b1b1b1b1b1b1b1b!2s87A%20Lumbini%2C%20Rahula%20Road%2C%20Matara!5e0!3m2!1sen!2slk!4v1642000000000",
+    "connectivity": {
+      "railway": {
+        "name": "Matara Railway Station",
+        "distance": "300m",
+        "time": "5 min walk",
+        "description": "The train is your gateway to the entire island."
+      },
+      "expressway": {
+        "name": "Expressway Entrance",
+        "distance": "1 km",
+        "time": "5 mins drive"
+      },
+      "shopping": {
+        "name": "Supermarkets & City Center",
+        "distance": "nearby",
+        "time": "5 mins tuk-tuk"
+      }
+    }
+  },
+  "contact": {
+    "hosts": [
+      {
+        "name": "Priyanka",
+        "phone": "+94 77 947 9900"
+      },
+      {
+        "name": "Thushara",
+        "phone": "+65 9425 2874"
+      }
+    ],
+    "photo": "img/ammanthaththa.jpg"
+  },
+  "pricing": {
+    "basePricePerNight": 120,
+    "directBookingDiscount": 0.15,
+    "currency": "USD"
+  },
+  "images": {
+    "logo": "img/logo.png",
+    "hero": "img/nomads_24.jpg",
+    "gallery": [
+      "img/nomads_2.jpg",
+      "img/nomads_4.jpg",
+      "img/nomads_5.jpg",
+      "img/nomads_6.jpg",
+      "img/nomads_7.jpg",
+      "img/nomads_8.jpg",
+      "img/nomads_9.jpg",
+      "img/nomads_10.jpg",
+      "img/nomads_15.jpg",
+      "img/nomads_16.jpg",
+      "img/nomads_18.jpg",
+      "img/nomads_19.jpg",
+      "img/nomads_20.jpg",
+      "img/nomads_24.jpg"
+    ]
+  },
+  "beaches": [
+    {
+      "name": "Polhena Beach",
+      "distance": "3 KM",
+      "time": "10 mins",
+      "tags": ["🐢", "🤿"],
+      "description": "Calm waters protected by a reef. Famous for Swimming with Sea Turtles. Perfect for snorkeling.",
+      "image": "https://images.unsplash.com/photo-1582650630740-4c740c49495b?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "name": "Madiha Beach",
+      "distance": "4 KM",
+      "time": "12 mins",
+      "tags": ["🏄", "☕"],
+      "description": "The hip 'Surfer's Village'. Excellent coffee shops, local vibes, and quality surf breaks for intermediates.",
+      "image": "https://images.unsplash.com/photo-1537550839958-38069d3f18df?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "name": "SK Town Beach",
+      "distance": "6 KM",
+      "time": "15 mins",
+      "tags": ["🏄", "😌"],
+      "description": "A hidden gem with quiet, vast sandy shores. Excellent for Beginner Surfing without crowds.",
+      "image": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "name": "Mirissa",
+      "distance": "10 KM",
+      "time": "20 mins",
+      "tags": ["🐋", "🌅", "🌙"],
+      "description": "Famous for Whale Watching and vibrant nightlife. Sunset cocktails at Coconut Tree Hill are legendary.",
+      "image": "https://images.unsplash.com/photo-1566373760359-22cb159b3513?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "name": "Weligama Bay",
+      "distance": "15 KM",
+      "time": "25 mins",
+      "tags": ["🏄", "👨‍🎓"],
+      "description": "The 'Capital of Learning to Surf'. Gentle long waves and home to the iconic Stilt Fishermen. Perfect for learners.",
+      "image": "https://images.unsplash.com/photo-1622306467657-3a13723321db?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      "name": "Hiriketiya",
+      "distance": "20 KM",
+      "time": "35 mins",
+      "tags": ["🧘", "☕", "🌙"],
+      "description": "A stunning horseshoe bay with jungle vibes. Hip cafes, yoga studios, and a very relaxed bohemian atmosphere.",
+      "image": "https://images.unsplash.com/photo-1588691898747-81d3d62325c3?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      "name": "Talalla Beach",
+      "distance": "25 KM",
+      "time": "40 mins",
+      "tags": ["🌅", "😌"],
+      "description": "A quiet and secluded beach with dramatic cliff views. Perfect for those seeking peace and pristine natural beauty.",
+      "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "name": "Duwili Ulpatha Beach",
+      "distance": "8 KM",
+      "time": "18 mins",
+      "tags": ["🏖️", "😌"],
+      "description": "A lesser-known pristine beach with golden sand and calm waters. Ideal for swimming and beach picnics away from tourists.",
+      "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2070&auto=format&fit=crop"
+    },
+    {
+      "name": "Matara Beach",
+      "distance": "2 KM",
+      "time": "5 mins",
+      "tags": ["🌅", "🚶"],
+      "description": "Your closest beach! Scenic coastal views with local restaurants and calm morning swims. Great for sunrise walks.",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070&auto=format&fit=crop"
+    }
+  ],
+  "typewriterBeaches": [
+    {
+      "name": "Polhena Beach",
+      "distance": "3 KM",
+      "time": "10 mins",
+      "tags": ["🐢", "🤿"]
+    },
+    {
+      "name": "Matara Beach",
+      "distance": "2 KM",
+      "time": "5 mins",
+      "tags": ["🌅", "🚶"]
+    },
+    {
+      "name": "Madiha Beach",
+      "distance": "4 KM",
+      "time": "12 mins",
+      "tags": ["🏄", "☕"]
+    },
+    {
+      "name": "SK Town Beach",
+      "distance": "6 KM",
+      "time": "15 mins",
+      "tags": ["🏄", "😌"]
+    },
+    {
+      "name": "Duwili Ulpatha",
+      "distance": "8 KM",
+      "time": "18 mins",
+      "tags": ["🏖️", "😌"]
+    },
+    {
+      "name": "Mirissa",
+      "distance": "10 KM",
+      "time": "20 mins",
+      "tags": ["🐋", "🌅", "🌙"]
+    },
+    {
+      "name": "Weligama Bay",
+      "distance": "15 KM",
+      "time": "25 mins",
+      "tags": ["🏄", "👨‍🎓"]
+    },
+    {
+      "name": "Talalla Beach",
+      "distance": "25 KM",
+      "time": "40 mins",
+      "tags": ["🌅", "😌"]
+    },
+    {
+      "name": "Hiriketiya",
+      "distance": "20 KM",
+      "time": "35 mins",
+      "tags": ["🧘", "☕", "🌙"]
+    }
+  ],
+  "partners": [
+    {
+      "name": "RideXHub",
+      "category": "Motorbike & Scooter Rentals",
+      "logo": "img/ridexhub_logo.webp",
+      "description": "Explore Sri Lanka on two wheels! We've partnered with RideXHub to offer our guests exclusive discounts on hassle-free, deposit-free bike rentals with free home delivery to your villa.",
+      "perks": [
+        "No Deposit Required",
+        "Free Delivery & Pickup",
+        "Guest Discount Available"
+      ],
+      "website": "http://ridexhub.com/",
+      "icon": "bike"
+    },
+    {
+      "name": "Matara Spice",
+      "category": "Premium Spices",
+      "logo": "img/MSCo_logs.png",
+      "description": "Authentic Sri Lankan spices sourced from our family business. Bring home the essence of Sri Lanka: premium cinnamon, black pepper, cloves, cardamom, nutmeg, and much more.",
+      "perks": [
+        "Farm-Fresh Quality",
+        "Family-Run Since Generations",
+        "Direct from Matara"
+      ],
+      "website": "https://mataraspice.com/",
+      "icon": "leaf"
+    }
+  ],
+  "otas": [
+    {
+      "name": "Airbnb",
+      "icon": "home",
+      "url": "https://www.airbnb.com.sg/rooms/1455899583985865476"
+    },
+    {
+      "name": "Booking.com",
+      "icon": "bed",
+      "url": "https://www.booking.com/Share-ZnfqtK"
+    },
+    {
+      "name": "Agoda",
+      "icon": "map",
+      "url": "https://www.agoda.com/sl/JrA6uDBUArP"
+    },
+    {
+      "name": "Trip.com",
+      "icon": "globe",
+      "url": "https://www.trip.com/w/nzZiscnPDT2"
+    }
+  ],
+  "reviews": {
+    "heading": "What Our Guests Say",
+    "description": "Authentic reviews from travelers who've experienced Nomads Hideaway. Read verified reviews from Booking.com, Airbnb, and more.",
+    "elfsightAppId": "73992642-0d9c-4ec3-b7fc-29774785b662"
+  },
+  "stripe": {
+    "paymentLink": "https://buy.stripe.com/YOUR_STRIPE_LINK"
+  }
+}
