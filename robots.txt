@@ -1,0 +1,72 @@
+# Robots.txt for Nomads Hideaway
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /legal.html
+Allow: /img/
+Allow: /netlify/
+
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /.git/
+
+# Specific rules for search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckGo
+Allow: /
+
+# AI/LLM Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Perplexity
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://nomadshideaway.com/sitemap.xml

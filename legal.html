@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Policies | Nomads Hideaway</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --mango: #FFB347;
+            --leaf: #2E8B57;
+            --railway: #E63946;
+            --sand: #F9F7F2;
+            --text: #2C3E50;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--sand); color: var(--text); line-height: 1.7; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--leaf); }
+
+        /* HEADER */
+        header.nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--leaf); display: flex; align-items: center; gap: 10px; }
+        .nav-logo img { height: 35px; width: auto; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--mango); }
+        
+        .nav-booknow {
+            background: linear-gradient(135deg, var(--mango), #FFD580) !important;
+            color: white !important;
+            padding: 10px 25px !important;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
+        }
+        .nav-booknow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 71, 0.5);
+        }
+        
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 25px; height: 3px; background: var(--text); border-radius: 2px; }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: 900px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        main h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        main > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* NAVIGATION TABS */
+        .policy-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .policy-nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--text);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .policy-nav a:hover,
+        .policy-nav a.active {
+            color: var(--leaf);
+            border-bottom-color: var(--leaf);
+        }
+
+        /* POLICY SECTIONS */
+        .policy-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .policy-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--leaf);
+        }
+
+        .policy-section h3 {
+            font-size: 1.3rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .policy-section p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .policy-section ul {
+            margin: 15px 0 15px 30px;
+            color: #555;
+        }
+
+        .policy-section li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .policy-section strong {
+            color: var(--leaf);
+        }
+
+        .highlight {
+            background: rgba(255, 179, 71, 0.1);
+            padding: 20px;
+            border-left: 4px solid var(--mango);
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        /* FOOTER */
+        footer { 
+            background: var(--text); 
+            color: #aaa; 
+            padding: 40px 20px; 
+            text-align: center; 
+            margin-top: 60px; 
+        }
+        footer h3 { color: var(--white); margin-bottom: 10px; }
+        footer a { color: var(--mango); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            header.nav-bar { top: 0; width: 100%; border-radius: 50px; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; }
+            .nav-links.active { display: flex; }
+            .hamburger { display: flex; }
+            
+            main { margin-top: 140px; }
+            main h1 { font-size: 1.8rem; }
+            
+            .policy-section { padding: 25px; }
+            .policy-section h2 { font-size: 1.4rem; }
+            .policy-nav { flex-direction: column; }
+            .policy-nav a { display: block; text-align: left; border-bottom: none; border-left: 3px solid transparent; }
+            .policy-nav a:hover,
+            .policy-nav a.active { border-left-color: var(--leaf); }
+        }
+    </style>
+</head>
+<body>
+    <header class="nav-bar">
+        <div class="nav-logo">
+            <img src="img/logo.png" style="height: 35px; width: auto;" alt="Logo" onerror="this.style.display='none'"> 
+            <span>Nomads Hideaway</span>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" onclick="toggleMenu()">Home</a>
+            <a href="index.html#book" onclick="toggleMenu()" class="nav-booknow">Book Now</a>
+            <a href="index.html#gallery" onclick="toggleMenu()">Gallery</a>
+            <a href="index.html#owners" onclick="toggleMenu()">Hosts</a>
+            <a href="index.html#reviews" onclick="toggleMenu()">Reviews</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Legal & Policies</h1>
+        <p>Terms, conditions, and important information about your stay at Nomads Hideaway</p>
+
+        <div class="policy-nav">
+            <a href="#cancellation" class="active">Cancellation Policy</a>
+            <a href="#terms">Terms & Conditions</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#payment">Payment Terms</a>
+            <a href="#local-law">Local Law Compliance</a>
+        </div>
+
+        <!-- CANCELLATION POLICY -->
+        <section class="policy-section" id="cancellation">
+            <h2>Cancellation Policy</h2>
+            <p>Nomads Hideaway maintains a firm cancellation policy designed to protect the hosts' interests and ensure business stability.</p>
+
+            <h3>Cancellation Timeline & Refund Rates</h3>
+            <ul>
+                <li><strong>More than 60 days before arrival:</strong> 50% refund (50% retained by host)</li>
+                <li><strong>30-60 days before arrival:</strong> 25% refund (75% retained by host)</li>
+                <li><strong>15-29 days before arrival:</strong> No refund (100% retained by host)</li>
+                <li><strong>Less than 15 days before arrival:</strong> No refund (100% retained by host)</li>
+                <li><strong>No-show or cancellation on arrival date:</strong> 100% charge with no refund</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Host Protection:</strong> These strict terms protect Lionel and Priyanka from last-minute cancellations and ensure consistent income for the property. Last-minute cancellations severely impact the hosts' ability to secure alternative bookings.
+            </div>
+
+            <h3>Special Circumstances</h3>
+            <p>The hosts may consider partial refunds or rebooking options for genuine emergencies (medical issues, death in family, travel restrictions) at their sole discretion. Requests must be submitted with supporting documentation within 48 hours of cancellation.</p>
+
+            <h3>Non-Refundable Items</h3>
+            <ul>
+                <li>Cleaning fees (non-refundable in all cases)</li>
+                <li>Service fees charged by booking platforms</li>
+                <li>Deposits and security fees (unless damages are not incurred)</li>
+            </ul>
+        </section>
+
+        <!-- TERMS & CONDITIONS -->
+        <section class="policy-section" id="terms">
+            <h2>Terms & Conditions</h2>
+            <p>By booking and staying at Nomads Hideaway, you agree to the following terms and conditions.</p>
+
+            <h3>Booking & Reservation</h3>
+            <ul>
+                <li>Guests must be at least 18 years old to book the property</li>
+                <li>The person booking is responsible for all guests in the property</li>
+                <li>Maximum occupancy: 2 guests (as stated in property details)</li>
+                <li>Booking confirmation is non-binding until full payment is received</li>
+            </ul>
+
+            <h3>Guest Conduct & House Rules</h3>
+            <ul>
+                <li>No loud noise or disturbances after 10 PM</li>
+                <li>No smoking inside the property (smoking area available in garden)</li>
+                <li>No illegal substances or activities permitted</li>
+                <li>No parties, gatherings, or additional unauthorized guests</li>
+                <li>Guests must respect the property and its furnishings</li>
+                <li>All house rules and owner instructions must be followed</li>
+                <li>Failure to comply may result in immediate eviction without refund</li>
+            </ul>
+
+            <h3>Liability & Damage</h3>
+            <ul>
+                <li>Guest is responsible for all damages caused during their stay</li>
+                <li>A security deposit may be charged for damages beyond normal wear and tear</li>
+                <li>Hosts reserve the right to deduct repair costs from guest payments</li>
+                <li>Guests are responsible for loss of personal belongings</li>
+                <li>The property and hosts are not liable for guest injuries or incidents</li>
+            </ul>
+
+            <h3>Check-in & Check-out</h3>
+            <ul>
+                <li>Check-in time: 2:00 PM (early check-in available on request, subject to availability)</li>
+                <li>Check-out time: 11:00 AM (late checkout available on request, subject to additional charges)</li>
+                <li>Guests must vacate the property completely by check-out time</li>
+                <li>Keys must be returned to the hosts or secure key box</li>
+            </ul>
+
+            <h3>Modifications & Cancellations by Host</h3>
+            <p>Nomads Hideaway reserves the right to cancel a booking if:</p>
+            <ul>
+                <li>The guest has a history of property damage or violations</li>
+                <li>Guest conduct poses a threat to property, hosts, or other guests</li>
+                <li>Illegal activity is suspected or confirmed</li>
+                <li>The property becomes uninhabitable due to unforeseen circumstances (natural disaster, emergency repairs, force majeure)</li>
+            </ul>
+            <p>In case of host-initiated cancellation, guests will receive a full refund.</p>
+        </section>
+
+        <!-- PRIVACY POLICY -->
+        <section class="policy-section" id="privacy">
+            <h2>Privacy Policy</h2>
+            <p>Nomads Hideaway is committed to protecting your privacy and personal data in accordance with applicable laws.</p>
+
+            <h3>Information We Collect</h3>
+            <ul>
+                <li>Name, email address, and phone number</li>
+                <li>Payment information (processed securely through booking platforms)</li>
+                <li>Booking history and dates</li>
+                <li>Special requests and dietary preferences</li>
+                <li>Guest feedback and reviews</li>
+                <li>Communication records (emails, messages)</li>
+            </ul>
+
+            <h3>How We Use Your Information</h3>
+            <ul>
+                <li>To confirm bookings and manage reservations</li>
+                <li>To communicate with you about your stay</li>
+                <li>To provide personalized recommendations and services</li>
+                <li>To improve property services and facilities</li>
+                <li>To comply with legal and tax obligations</li>
+                <li>For security and fraud prevention</li>
+            </ul>
+
+            <h3>Data Protection</h3>
+            <ul>
+                <li>Payment information is encrypted and processed securely</li>
+                <li>Personal data is stored securely and accessed only by authorized persons</li>
+                <li>We do not share personal information with third parties without consent, except as required by law</li>
+                <li>Data retention: Guest information is retained for the duration of the booking plus 5 years for legal/tax purposes</li>
+            </ul>
+
+            <h3>Your Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal data</li>
+                <li>Correct inaccurate information</li>
+                <li>Request deletion of your data (except where legally required to retain)</li>
+                <li>Opt-out of marketing communications</li>
+            </ul>
+
+            <h3>Contact for Privacy Concerns</h3>
+            <p>For privacy inquiries, please contact us via WhatsApp or email at your earliest convenience.</p>
+        </section>
+
+        <!-- PAYMENT TERMS -->
+        <section class="policy-section" id="payment">
+            <h2>Payment Terms & Conditions</h2>
+            <p>All transactions at Nomads Hideaway are processed securely and are subject to the following terms.</p>
+
+            <h3>Accepted Payment Methods</h3>
+            <ul>
+                <li>Credit/Debit Cards (Visa, Mastercard, American Express)</li>
+                <li>Digital Wallets (Apple Pay, Google Pay)</li>
+                <li>Bank Transfers</li>
+                <li>Payment through booking platforms (Airbnb, Booking.com, etc.)</li>
+            </ul>
+
+            <h3>Pricing & Taxes</h3>
+            <ul>
+                <li>All prices are quoted per night in USD or LKR as indicated</li>
+                <li>Additional charges include cleaning fees, service fees, and local taxes</li>
+                <li>Prices are subject to change for new bookings (confirmed bookings are locked)</li>
+                <li>Applicable Sri Lankan taxes and levies will be added to the final bill</li>
+            </ul>
+
+            <h3>Payment Schedule</h3>
+            <ul>
+                <li>Full payment is due upon booking confirmation</li>
+                <li>For bookings made through platforms, platform payment terms apply</li>
+                <li>Late payments may result in booking cancellation</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Refund Processing:</strong> Approved refunds are processed within 7-14 business days to the original payment method. Processing times vary by bank and payment method.
+            </div>
+
+            <h3>Chargeback & Dispute Resolution</h3>
+            <ul>
+                <li>Any disputes must be filed within 30 days of transaction</li>
+                <li>Chargebacks may result in booking cancellation and legal action</li>
+                <li>Guests agree to resolve disputes through communication with hosts before initiating chargebacks</li>
+            </ul>
+
+            <h3>Currency & Exchange</h3>
+            <p>Prices may be displayed in multiple currencies. The actual charge will be in the currency of your payment method. Exchange rates are determined by your bank or payment provider.</p>
+        </section>
+
+        <!-- LOCAL LAW COMPLIANCE -->
+        <section class="policy-section" id="local-law">
+            <h2>Local Law Compliance & Jurisdiction</h2>
+            <p>Nomads Hideaway operates in full compliance with Sri Lankan laws and regulations.</p>
+
+            <h3>Legal Jurisdiction</h3>
+            <ul>
+                <li>This property is registered with the relevant Sri Lankan authorities</li>
+                <li>All bookings and disputes are governed by Sri Lankan law</li>
+                <li>The venue for any legal proceedings shall be in Matara, Sri Lanka</li>
+            </ul>
+
+            <h3>Guest Legal Obligations</h3>
+            <ul>
+                <li>Guests must comply with all Sri Lankan laws during their stay</li>
+                <li>Guests must respect local customs, traditions, and cultural sensitivities</li>
+                <li>Guests are responsible for obtaining valid visas and travel documentation</li>
+                <li>Guests must declare any restricted items upon check-in</li>
+                <li>Violation of local laws may result in guest eviction and involvement of local authorities</li>
+            </ul>
+
+            <h3>Immigration & Documentation</h3>
+            <ul>
+                <li>Guests must provide valid identification at check-in</li>
+                <li>Guests must comply with Sri Lankan immigration regulations</li>
+                <li>Property details may be reported to local authorities as required by law</li>
+                <li>Extended stays may require visa extensions or tourist permits</li>
+            </ul>
+
+            <h3>Restricted Activities</h3>
+            <p>The following activities are strictly prohibited at Nomads Hideaway:</p>
+            <ul>
+                <li>Any illegal activities under Sri Lankan law</li>
+                <li>Drug production, possession, or use</li>
+                <li>Prostitution or sexual exploitation</li>
+                <li>Weapons or explosives</li>
+                <li>Human trafficking</li>
+                <li>Money laundering or fraud</li>
+                <li>Disrespect to religious or cultural sites</li>
+            </ul>
+
+            <h3>Host Obligations</h3>
+            <ul>
+                <li>Property taxes and licenses are current and valid</li>
+                <li>Insurance coverage is in place for the property</li>
+                <li>Safety standards and local building codes are maintained</li>
+                <li>Guests' personal information is protected as per data protection laws</li>
+            </ul>
+
+            <h3>Dispute Resolution</h3>
+            <p>Any disputes arising from bookings or stays will be resolved through:</p>
+            <ol>
+                <li>Direct communication between guest and hosts</li>
+                <li>Mediation through the booking platform (if applicable)</li>
+                <li>Legal proceedings under Sri Lankan jurisdiction if necessary</li>
+            </ol>
+
+            <h3>Liability & Indemnity</h3>
+            <p>By booking at Nomads Hideaway, guests agree to indemnify and hold harmless Lionel, Priyanka, and the property from any claims, damages, or liabilities arising from their stay, including but not limited to:</p>
+            <ul>
+                <li>Personal injury or death</li>
+                <li>Loss or damage of personal belongings</li>
+                <li>Property damage</li>
+                <li>Medical emergencies</li>
+                <li>Travel disruptions or delays</li>
+            </ul>
+
+            <h3>Force Majeure</h3>
+            <p>Nomads Hideaway is not liable for cancellations or disruptions due to unforeseeable circumstances including but not limited to: natural disasters, pandemics, war, terrorism, government actions, or civil unrest. In such cases, guests may receive a rebooking or partial refund at the hosts' discretion.</p>
+        </section>
+
+        <section class="policy-section">
+            <h2>Acknowledgment</h2>
+            <p>By completing your booking at Nomads Hideaway, you acknowledge that you have read, understood, and agree to be bound by all terms, conditions, and policies outlined on this page.</p>
+            <p><strong>Last Updated:</strong> January 2026</p>
+            <p><strong>For Questions:</strong> Contact us via WhatsApp at the number provided on our website.</p>
+        </section>
+    </main>
+
+    <footer>
+        <h3>Nomads Hideaway</h3>
+        <p>87A Lumbini, Rahula Road, Matara 81000, Sri Lanka</p>
+        <p><a href="index.html">Back to Home</a> | <a href="#cancellation">Cancellation Policy</a> | <a href="#privacy">Privacy Policy</a> | <a href="#local-law">Legal Compliance</a></p>
+        <p style="margin-top: 20px; font-size: 0.9rem;">© 2026 Nomads Hideaway. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for policy navigation
+        document.querySelectorAll('.policy-nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.policy-nav a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                const target = link.getAttribute('href');
+                document.querySelector(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>

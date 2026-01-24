@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://nomadshideaway.com/index.html</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://nomadshideaway.com/img/nomads_24.jpg</image:loc>
+            <image:title>Nomads Hideaway - Southern Sri Lanka</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://nomadshideaway.com/img/nomads_6.jpg</image:loc>
+            <image:title>Nomads Hideaway Villa</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Legal Pages -->
+    <url>
+        <loc>https://nomadshideaway.com/legal.html</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://nomadshideaway.com/legal.html#cancellation</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nomadshideaway.com/legal.html#terms</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nomadshideaway.com/legal.html#privacy</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nomadshideaway.com/legal.html#payment</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nomadshideaway.com/legal.html#local-law</loc>
+        <lastmod>2026-01-24</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>
