@@ -148,6 +148,138 @@
             50%, 100% { opacity: 0; }
         }
 
+        .beaches-hero-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, var(--mango), #FFD580);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 179, 71, 0.4);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .beaches-hero-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(255, 179, 71, 0.6);
+        }
+
+        /* PROXIMITY BADGES */
+        .proximity-badges {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .badge i {
+            color: var(--mango);
+        }
+
+        .badge span {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .badge small {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .proximity-badges {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin-top: 30px;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .badge {
+                padding: 10px 12px;
+                font-size: 0.8rem;
+            }
+
+            .badge i {
+                width: 16px;
+                height: 16px;
+            }
+
+            .badge span {
+                font-size: 0.8rem;
+            }
+
+            .badge small {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .proximity-badges {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+                margin-top: 25px;
+                max-width: 280px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .badge {
+                padding: 8px 10px;
+                font-size: 0.7rem;
+                gap: 6px;
+                border-radius: 12px;
+            }
+
+            .badge i {
+                width: 14px;
+                height: 14px;
+            }
+
+            .badge span {
+                font-size: 0.75rem;
+            }
+
+            .badge small {
+                font-size: 0.65rem;
+            }
+        }
+
         /* BOOKING BAR (Glassmorphism Orange) */
         .booking-bar {
             background: rgba(255, 179, 71, 0.95); 
@@ -183,6 +315,69 @@
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(46, 139, 87, 0.3); }
         .btn-primary:disabled { background-color: #ccc; cursor: not-allowed; transform: none; }
 
+        .nav-booknow {
+            background: linear-gradient(135deg, var(--mango), #FFD580) !important;
+            color: white !important;
+            padding: 10px 25px !important;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
+        }
+        .nav-booknow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 71, 0.5);
+        }
+
+        .map-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .map-container:hover .map-overlay {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .directions-btn {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: var(--leaf);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .map-container:hover .directions-btn {
+            opacity: 1;
+        }
+
+        .directions-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 30px rgba(46, 139, 87, 0.3);
+        }
+
         /* GENERAL CONTAINERS */
         .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
 
@@ -216,6 +411,41 @@
         .beach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
         .beach-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
         .beach-card:hover { transform: translateY(-5px); }
+
+        @media (max-width: 768px) {
+            .beach-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                margin-top: 30px;
+                padding-bottom: 15px;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .beach-card {
+                flex: 0 0 280px;
+                min-width: 280px;
+            }
+
+            .beach-grid::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .beach-grid::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+            }
+
+            .beach-grid::-webkit-scrollbar-thumb {
+                background: rgba(255, 179, 71, 0.6);
+                border-radius: 10px;
+            }
+
+            .beach-grid::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 179, 71, 0.8);
+            }
+        }
         .beach-img { height: 200px; background-size: cover; background-position: center; position: relative; }
         .distance-tag { position: absolute; bottom: 15px; left: 15px; background: var(--white); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: var(--text); }
         .beach-content { padding: 25px; }
@@ -394,9 +624,254 @@
         }
 
         /* OWNERS */
-        .owners-section { background: var(--white); padding: 60px 20px; text-align: center; }
-        .couple-photo-container { width: 250px; height: 250px; border-radius: 50%; overflow: hidden; margin: 0 auto 30px; border: 5px solid var(--mango); }
-        .couple-photo-container img { width: 100%; height: 100%; object-fit: cover; }
+        .owners-section { background: var(--white); padding: 60px 20px; }
+        
+        .villa-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .villa-image-container {
+            border-radius: 20px;
+            overflow: visible;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .villa-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .villa-overlay-text {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hosts-avatar {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .hosts-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* PARTNER LOGOS OVERLAY ON VILLA IMAGE */
+        .partner-logos-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .partner-logos-overlay .partner-logo-tooltip img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.85;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .partner-logos-overlay .partner-logo-tooltip img:hover {
+            opacity: 1;
+        }
+
+        .villa-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .villa-info p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .hosts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .host-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 179, 71, 0.15);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .host-card:hover {
+            border-color: var(--mango);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+
+        .host-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* PARTNER LOGOS WITH TOOLTIPS */
+        .partner-logos {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .partner-logo-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .partner-logo-tooltip img {
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .partner-logo-tooltip img:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .partner-logo-tooltip .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--mango);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            white-space: nowrap;
+            z-index: 100;
+            transition: opacity 0.3s ease;
+            width: 250px;
+            white-space: normal;
+        }
+
+        .partner-logo-tooltip:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .partner-logo-tooltip .tooltip h4 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            color: var(--leaf);
+        }
+
+        .partner-logo-tooltip .tooltip p {
+            margin: 0 0 10px 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .partner-logo-tooltip .tooltip a {
+            display: inline-block;
+            color: var(--mango);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .partner-logo-tooltip .tooltip a:hover {
+            text-decoration: underline;
+        }
+
+        .partner-logo-tooltip .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--mango) transparent transparent transparent;
+        }
+
+        @media (max-width: 768px) {
+            .partner-logo-tooltip .tooltip {
+                width: 200px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .villa-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 40px;
+            }
+
+            .villa-image-container {
+                position: relative;
+            }
+
+            .villa-overlay-text {
+                font-size: 1.6rem;
+                top: 20px;
+                left: 20px;
+            }
+
+            .hosts-avatar {
+                width: 100px;
+                height: 100px;
+                bottom: 15px;
+                right: 15px;
+                border-width: 3px;
+            }
+
+            .villa-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .hosts-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .host-card {
+                padding: 25px;
+            }
+        }
 
         /* INSTAGRAM */
         .insta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 30px; }
@@ -511,6 +986,79 @@
             box-shadow: 0 8px 20px rgba(255,179,71,0.3);
         }
 
+        /* FLOATING DIRECTIONS BUTTON */
+        .floating-directions {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--mango), #FFD580);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(255, 179, 71, 0.4);
+            transition: all 0.3s ease;
+            z-index: 998;
+            cursor: pointer;
+        }
+
+        .floating-directions:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 179, 71, 0.6);
+        }
+
+        .floating-directions:active {
+            transform: scale(0.95);
+        }
+
+        /* FLOATING WHATSAPP WIDGET */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #20BA5C);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .floating-whatsapp:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 480px) {
+            .floating-directions {
+                width: 55px;
+                height: 55px;
+                bottom: 90px;
+                right: 20px;
+            }
+
+            .floating-whatsapp {
+                width: 55px;
+                height: 55px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
         /* FOOTER */
         footer { background: var(--text); color: #aaa; padding: 40px 20px; text-align: center; margin-top: 60px; }
         footer h3 { color: var(--white); margin-bottom: 10px; }
@@ -564,10 +1112,10 @@
             <span></span><span></span><span></span>
         </div>
         <nav class="nav-links" id="navLinks">
-            <a href="#book" onclick="toggleMenu()">Book Now</a>
-            <a href="#beaches" onclick="toggleMenu()">Beaches</a>
+            <a href="#book" onclick="toggleMenu()" class="nav-booknow">Book Now</a>
             <a href="#gallery" onclick="toggleMenu()">Gallery</a>
             <a href="#owners" onclick="toggleMenu()">Hosts</a>
+            <a href="#reviews" onclick="toggleMenu()">Reviews</a>
         </nav>
     </header>
 
@@ -576,6 +1124,29 @@
             <h1>Your Base Camp in the South</h1>
             <div class="typewriter-container">
                 <p class="typewriter-text"><span id="typewriter"><span class="typewriter-cursor">|</span></span><span class="distance-indicator" id="distance-tag"></span></p>
+            </div>
+            <a href="#beaches" class="beaches-hero-btn">Explore Nearby Beaches</a>
+            <div class="proximity-badges">
+                <div class="badge">
+                    <i data-lucide="train" size="18"></i>
+                    <span>5 min walk</span>
+                    <small>Railway Station</small>
+                </div>
+                <div class="badge">
+                    <i data-lucide="bus" size="18"></i>
+                    <span>15 min walk</span>
+                    <small>Bus Stand</small>
+                </div>
+                <div class="badge">
+                    <i data-lucide="road" size="18"></i>
+                    <span>5 min drive</span>
+                    <small>Expressway</small>
+                </div>
+                <div class="badge">
+                    <i data-lucide="shopping-bag" size="18"></i>
+                    <span>10 min walk</span>
+                    <small>City Center</small>
+                </div>
             </div>
         </div>
     </div>
@@ -620,29 +1191,7 @@
         </div>
     </div>
 
-    <section class="container">
-        <div class="connect-grid">
-            <div class="connect-info">
-                <h2>Connected to Everything. <br>Far from the Noise.</h2>
-                <p>Unlike isolated tourist hotels, Nomads Hideaway is located in a real Sri Lankan neighborhood. You get the peace of a private garden villa with unmatched connectivity.</p>
-                
-                <div class="highlight-box">
-                    <i data-lucide="train" size="28" color="#E63946"></i>
-                    <div>
-                        <h4 style="color:var(--railway); margin-bottom: 5px;">Matara Railway Station</h4>
-                        <p style="margin:0; font-size:0.9rem;">Just <strong>300m / 5 min walk</strong> away. The train is your gateway to the entire island.</p>
-                    </div>
-                </div>
-                <div style="margin-top: 30px;">
-                    <p><i data-lucide="map-pin" size="16"></i> <strong>Expressway Entrance:</strong> 5 mins drive</p>
-                    <p><i data-lucide="shopping-bag" size="16"></i> <strong>Supermarkets & City Center:</strong> 5 mins tuk-tuk</p>
-                </div>
-            </div>
-            <div class="connect-img">
-                <img src="https://images.unsplash.com/photo-1596627828236-8968925d62b5?q=80&w=2070&auto=format&fit=crop" style="width:100%; border-radius: 20px;" alt="Sri Lanka Train" onerror="handleImageError(this)">
-            </div>
-        </div>
-    </section>
+
 
     <section class="container" id="beaches">
         <h2 style="text-align: center;">Your Base Camp for the South Coast</h2>
@@ -766,73 +1315,82 @@
     </div>
 
     <section class="owners-section" id="owners">
-        <div class="couple-photo-container">
-            <img src="img/ammanthaththa.jpg" alt="Priyanka & Lionel" onerror="handleImageError(this)">
+        <div class="villa-content">
+            <div class="villa-image-container">
+                <img src="img/nomads_6.jpg" alt="Nomads Hideaway Villa" onerror="handleImageError(this)">
+                <div class="villa-overlay-text">Lionel & Priyanka</div>
+                <div class="partner-logos-overlay">
+                    <div class="partner-logo-tooltip">
+                        <img src="img/ridexhub_logo.webp" alt="RideXHub" onerror="handleImageError(this)">
+                        <div class="tooltip">
+                            <h4>RideXHub</h4>
+                            <p>Bike and vehicle rentals. No deposit required, free delivery & pickup. Guest discounts available.</p>
+                            <a href="http://ridexhub.com/" target="_blank">Visit Website →</a>
+                        </div>
+                    </div>
+                    <div class="partner-logo-tooltip">
+                        <img src="img/MSCo_logs.png" alt="Matara Spice" onerror="handleImageError(this)">
+                        <div class="tooltip">
+                            <h4>Matara Spice Co.</h4>
+                            <p>Premium Ceylon cinnamon and authentic Sri Lankan spices from family-owned fields.</p>
+                            <a href="https://mataraspice.com/" target="_blank">Visit Website →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hosts-avatar">
+                    <img src="img/ammanthaththa.jpg" alt="Lionel & Priyanka" onerror="handleImageError(this)">
+                </div>
+            </div>
+            <div class="villa-info">
+                <h2>Your Home Away From Home</h2>
+                <p><strong>Nomads Hideaway</strong> is a peaceful, eco-friendly garden villa tucked away just 5 minutes from Matara Railway Station. Originally built in 1962, this charming Sri Lankan home has been lovingly maintained and thoughtfully renovated—preserving its vintage soul while offering all the comforts modern travelers need.</p>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--leaf);">Villa Features</h3>
+                <ul style="color: #666; line-height: 1.8; margin-left: 20px;">
+                    <li>Spacious bedroom with original smooth red cement floors</li>
+                    <li>Handcrafted decor and dedicated work desk</li>
+                    <li>Private entrance and tropical garden</li>
+                    <li>Outdoor seating under a mature mango tree</li>
+                    <li>Private kitchenette with modern bathroom</li>
+                    <li>Access to house kitchen for heavy cooking</li>
+                    <li>Fast Wi-Fi and 24/7 solar-powered electricity</li>
+                    <li>Cozy indoor and outdoor dining areas</li>
+                </ul>
+            </div>
         </div>
-        <h2>Meet Your Hosts</h2>
-        <p style="max-width: 700px; margin: 0 auto; color: #666;">Priyanka and Lionel created Nomads Hideaway to share their love for Sri Lankan hospitality. Whether you need local tips or fresh fruit from the garden, they are here to make your stay unforgettable.</p>
     </section>
 
     <!-- GUEST REVIEWS SECTION -->
-    <section class="container" style="text-align: center; padding-top: 60px;">
+    <section class="container" id="reviews" style="text-align: center; padding-top: 60px;">
         <h2 style="margin-bottom: 40px;">What Our Guests Say</h2>
         <p style="color: #666; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">Authentic reviews from travelers who've experienced Nomads Hideaway. Read verified reviews from Booking.com, Airbnb, and more.</p>
         <div class="elfsight-app-73992642-0d9c-4ec3-b7fc-29774785b662" data-elfsight-app-lazy></div>
     </section>
 
-    <!-- PARTNER BUSINESSES -->
-    <section class="partners-section">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 50px;">Explore Local Partnerships</h2>
-            
-            <div class="partners-grid">
-                <!-- RideX Hub Partnership -->
-                <div class="partner-card">
-                    <div class="partner-logo-container">
-                        <img src="img/ridexhub_logo.webp" alt="RideXHub" class="partner-logo" onerror="handleImageError(this)">
-                    </div>
-                    <h3>RideXHub</h3>
-                    <p class="partner-category"><i data-lucide="bike" size="16" style="display: inline; margin-right: 5px;"></i> Motorbike & Scooter Rentals</p>
-                    <p class="partner-description">Explore Sri Lanka on two wheels! We've partnered with RideXHub to offer our guests exclusive discounts on hassle-free, deposit-free bike rentals with free home delivery to your villa.</p>
-                    <div class="partner-perks">
-                        <span class="perk"><i data-lucide="check-circle" size="14"></i> No Deposit Required</span>
-                        <span class="perk"><i data-lucide="check-circle" size="14"></i> Free Delivery & Pickup</span>
-                        <span class="perk"><i data-lucide="check-circle" size="14"></i> Guest Discount Available</span>
-                    </div>
-                    <a href="http://ridexhub.com/" target="_blank" class="partner-btn">Visit RideXHub</a>
-                </div>
 
-                <!-- Matara Spice Partnership -->
-                <div class="partner-card">
-                    <div class="partner-logo-container">
-                        <img src="img/MSCo_logs.png" alt="Matara Spice" class="partner-logo" onerror="handleImageError(this)">
-                    </div>
-                    <h3>Matara Spice</h3>
-                    <p class="partner-category"><i data-lucide="leaf" size="16" style="display: inline; margin-right: 5px;"></i> Premium Spices</p>
-                    <p class="partner-description">Authentic Sri Lankan spices sourced from our family business. Bring home the essence of Sri Lanka: premium cinnamon, black pepper, cloves, cardamom, nutmeg, and much more.</p>
-                    <div class="partner-perks">
-                        <span class="perk"><i data-lucide="check-circle" size="14"></i> Farm-Fresh Quality</span>
-                        <span class="perk"><i data-lucide="check-circle" size="14"></i> Family-Run Since Generations</span>
-                        <span class="perk"><i data-lucide="check-circle" size="14"></i> Direct from Matara</span>
-                    </div>
-                    <a href="https://mataraspice.com/" target="_blank" class="partner-btn">Visit Matara Spice</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="container">
-        <h2 style="text-align: center; margin-bottom: 20px;">Find Us</h2>
-        <div style="width: 100%; height: 400px; border-radius: 20px; overflow: hidden;">
-             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.005!2d80.540306!3d5.952389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae133f5b1b1b1b1%3A0x1b1b1b1b1b1b1b1b!2s87A%20Lumbini%2C%20Rahula%20Road%2C%20Matara!5e0!3m2!1sen!2slk!4v1642000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </section>
+
 
     <footer>
         <h3>Nomads Hideaway</h3>
         <p>87A Lumbini, Rahula Road, Matara 81000, Sri Lanka</p>
-        <p><i data-lucide="phone" size="14"></i> Priyanka: +94 77 947 9900 | <i data-lucide="message-circle" size="14"></i> Thushara: +65 9425 2874</p>
+        <p>Questions? Chat with us on WhatsApp</p>
     </footer>
+
+    <!-- FLOATING DIRECTIONS BUTTON -->
+    <a href="javascript:openDirections()" class="floating-directions" title="Get Directions to Nomads Hideaway">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3" fill="white"/>
+        </svg>
+    </a>
+
+    <!-- FLOATING WHATSAPP WIDGET -->
+    <a href="https://wa.me/6594252874" target="_blank" class="floating-whatsapp" title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.95 1.495c-1.514.923-2.747 2.212-3.51 3.637C2.202 9.757 1.838 11.749 2.992 13.811c1.153 2.062 3.279 3.235 5.66 3.235h.005c1.096 0 2.183-.264 3.222-.813l.321-.179c1.704-.97 3.061-2.35 3.977-3.978.916-1.627 1.315-3.296 1.315-5.088 0-1.034-.134-2.027-.397-2.945-.8-2.775-3.265-4.873-6.198-4.873m7.213-1.041c3.402 0 6.259 2.807 6.259 6.209 0 3.402-2.857 6.209-6.259 6.209-3.402 0-6.259-2.807-6.259-6.209 0-3.402 2.857-6.209 6.259-6.209m0 .941c-2.871 0-5.319 2.398-5.319 5.268 0 2.87 2.448 5.269 5.319 5.269 2.871 0 5.319-2.399 5.319-5.269 0-2.87-2.448-5.268-5.319-5.268z"/>
+        </svg>
+    </a>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
@@ -1108,6 +1666,15 @@
             if (e.key === 'Escape') closeLightbox();
         });
 
+        // Open Google Maps Directions
+        function openDirections() {
+            // Coordinates: 5°57'08.6"N 80°32'25.1"E = 5.952389, 80.540306
+            const lat = 5.952389;
+            const lng = 80.540306;
+            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+            window.open(mapsUrl, '_blank');
+        }
+
         // Initialize everything when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -1126,5 +1693,6 @@
                 }
             }, 100);
         }
+    </script>
 </body>
 </html>
