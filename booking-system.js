@@ -562,10 +562,10 @@ class PaymentSystem {
         if (this.selectedMethod === 'stripe') {
             this.handleStripeCheckout();
         } else if (this.selectedMethod === 'whatsapp') {
-            const selectedOption = document.getElementById('whatsapp-payment-method')?.value;
+            let selectedOption = document.getElementById('whatsapp-payment-method')?.value;
+            // If no method selected, proceed with 'To be discussed'
             if (!selectedOption) {
-                alert('Please select a payment method from the dropdown');
-                return;
+                selectedOption = null;
             }
             this.handleWhatsAppCheckout(selectedOption);
         }
@@ -604,7 +604,7 @@ class PaymentSystem {
     }
     
     handleWhatsAppCheckout(paymentMethod) {
-        const paymentMethodInfo = BOOKING_CONFIG.paymentMethodOptions[paymentMethod];
+        const paymentMethodInfo = paymentMethod ? BOOKING_CONFIG.paymentMethodOptions[paymentMethod] : null;
         const message = this.generateWhatsAppMessage(paymentMethodInfo);
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${BOOKING_CONFIG.whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`;
@@ -616,8 +616,8 @@ class PaymentSystem {
             nights: bookingState.nights,
             guests: bookingState.guestCount,
             vehicle: bookingState.vehicle,
-            paymentMethod: paymentMethod,
-            paymentMethodName: paymentMethodInfo.name,
+            paymentMethod: paymentMethod || 'tbd',
+            paymentMethodName: paymentMethodInfo ? paymentMethodInfo.name : 'To be discussed',
             totalPrice: bookingState.totalPrice
         };
         this.storeBooking(bookingDetails, 'whatsapp');
