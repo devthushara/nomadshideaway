@@ -18,12 +18,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// WhatsApp integration (example: Twilio)
-const twilio = require('twilio');
-const twilioClient = twilio(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_AUTH_TOKEN
-);
 
 // Simulated database (in production, use real database like MongoDB, PostgreSQL)
 const bookingStorage = [];
