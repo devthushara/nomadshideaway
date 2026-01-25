@@ -1198,6 +1198,452 @@
             .partner-description { font-size: 0.9rem; }
             .partner-perks { font-size: 0.85rem; }
         }
+
+        /* ==================== BOOKING MODAL STYLES ==================== */
+        #booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .booking-modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+            padding: 5px 10px;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        /* MODAL TABS */
+        .modal-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            color: var(--leaf);
+            border-bottom-color: var(--leaf);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* AVAILABILITY SECTION */
+        .availability-details {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--leaf);
+        }
+
+        .availability-details p {
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        /* BOOKING FORM SECTIONS */
+        .booking-form-section {
+            margin-bottom: 30px;
+        }
+
+        .booking-form-section h3 {
+            margin-bottom: 15px;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .guest-selector,
+        .vehicle-selector {
+            display: grid;
+            gap: 12px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .radio-label:hover {
+            background: #f0f0f0;
+        }
+
+        .radio-label input[type="radio"] {
+            margin-top: 4px;
+            cursor: pointer;
+            accent-color: var(--leaf);
+        }
+
+        .radio-label input[type="radio"]:checked ~ span {
+            color: var(--leaf);
+            font-weight: 600;
+        }
+
+        .radio-label input[type="radio"]:checked {
+            accent-color: var(--leaf);
+        }
+
+        .radio-label.active {
+            background: rgba(46, 139, 87, 0.1);
+            border-color: var(--leaf);
+        }
+
+        .radio-label span {
+            flex: 1;
+        }
+
+        .radio-label strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .price {
+            color: var(--leaf);
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .small-text {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* PRICE BREAKDOWN */
+        .price-breakdown {
+            background: linear-gradient(135deg, #fff9f5 0%, #f0f8f5 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+
+        .price-breakdown h4 {
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .price-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .price-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .price-line.total {
+            border-bottom: none;
+            border-top: 2px solid var(--leaf);
+            padding-top: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--leaf);
+        }
+
+        /* TERMS SECTION */
+        .terms-section {
+            margin: 20px 0;
+            padding: 15px 0;
+            border-top: 1px dashed #e0e0e0;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-top: 3px;
+            cursor: pointer;
+            accent-color: var(--leaf);
+            flex-shrink: 0;
+        }
+
+        .checkbox-label a {
+            color: var(--leaf);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* PAYMENT METHODS */
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .payment-method-btn {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            padding: 25px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .payment-method-btn:hover {
+            border-color: var(--leaf);
+            background: #f0f8f5;
+            transform: translateY(-2px);
+        }
+
+        .payment-method-btn.selected {
+            border-color: var(--leaf);
+            background: rgba(46, 139, 87, 0.1);
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .payment-desc {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* ALTERNATIVE METHODS */
+        .alternative-methods {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alternative-methods h4 {
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .alternative-methods .small-text {
+            margin-bottom: 15px;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .method-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .method-icon {
+            font-size: 1.8rem;
+        }
+
+        .method-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* TOTAL PRICE DISPLAY */
+        .total-price-display {
+            background: linear-gradient(135deg, #fff9f5 0%, #f0f8f5 100%);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            font-weight: 700;
+            border-left: 4px solid var(--leaf);
+        }
+
+        .amount {
+            color: var(--leaf);
+            font-size: 1.8rem;
+        }
+
+        /* MODAL ACTIONS */
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            padding: 12px 20px;
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-message {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--leaf);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+            z-index: 10000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .booking-modal-content {
+                padding: 25px 20px;
+                max-width: calc(100% - 20px);
+            }
+
+            .modal-tabs {
+                flex-wrap: wrap;
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+                flex: 1;
+                min-width: calc(33.33% - 7px);
+            }
+
+            .payment-methods-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .methods-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-actions .btn {
+                width: 100%;
+            }
+
+            .success-message {
+                left: 15px;
+                right: 15px;
+                bottom: 20px;
+            }
+        }
     </style>
 
     <!-- JSON-LD Structured Data for Hotels/Accommodation -->
@@ -1367,23 +1813,7 @@
             <label><i data-lucide="calendar" size="16"></i> Check Out</label>
             <input type="text" id="checkout" placeholder="Select Date">
         </div>
-        <button onclick="checkAvailability()" class="btn-primary" id="searchBtn">Check Availability</button>
-
-        <div class="price-result" id="result-area">
-            <h3 id="status-msg">Checking...</h3>
-            <div id="price-box" style="display:none;">
-                <div class="price-row">
-                    <span>OTA Price (approx):</span>
-                    <span class="strike" id="ota-price">$0</span>
-                </div>
-                <div class="price-row">
-                    <span><strong>Direct Price:</strong></span>
-                    <span class="final-price" id="direct-price">$0</span>
-                </div>
-                <p style="font-size: 0.9rem; color: var(--leaf); margin: 15px 0;">You save ~15% by booking direct.</p>
-                <button onclick="window.open('https://buy.stripe.com/YOUR_STRIPE_LINK', '_blank')" class="btn-primary" style="width: 100%;">Book Securely via Stripe</button>
-            </div>
-        </div>
+        <button onclick="handleBookingClick()" class="btn-primary" id="searchBtn">Check Availability</button>
     </div>
 
     <div class="ota-strip">
@@ -1614,6 +2044,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
+    <!-- Booking System -->
+    <script src="booking-system.js"></script>
     <!-- Elfsight All-in-One Reviews -->
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <script>
@@ -1717,60 +2149,30 @@
         flatpickr("#checkin", {
             minDate: "today",
             onChange: function(d, s) { 
-                startDate = s; 
-                checkoutPicker.set('minDate', s); 
+                startDate = new Date(s);
             }
         });
-        let checkoutPicker = flatpickr("#checkout", { minDate: "today", onChange: function(d, s) { endDate = s; } });
+        let checkoutPicker = flatpickr("#checkout", { 
+            minDate: "today", 
+            onChange: function(d, s) { 
+                endDate = new Date(s);
+            }
+        });
 
-        async function checkAvailability() {
-            if(!startDate || !endDate) return alert("Please select dates first.");
-            
-            const btn = document.getElementById("searchBtn");
-            const resultArea = document.getElementById("result-area");
-            const msg = document.getElementById("status-msg");
-            const priceBox = document.getElementById("price-box");
-
-            btn.disabled = true;
-            btn.innerText = "Checking...";
-            resultArea.style.display = "block"; 
-            priceBox.style.display = "none";
-            msg.innerText = "Syncing calendars...";
-            msg.style.color = "#555";
-
-            try {
-                // Pointing to your verified backend function
-                const res = await fetch('/.netlify/functions/check-availability', {
-                    method: 'POST',
-                    body: JSON.stringify({ checkIn: startDate, checkOut: endDate })
-                });
-                
-                const data = await res.json();
-
-                if (data.available) {
-                    msg.innerHTML = "Dates are Available! 🎉";
-                    msg.style.color = "var(--leaf)";
-                    priceBox.style.display = "block";
-                    
-                    // Display pricing from backend
-                    document.getElementById("ota-price").innerText = "$" + data.pricing.otaTotal;
-                    document.getElementById("direct-price").innerText = "$" + data.pricing.directTotal;
-                } else {
-                    msg.innerHTML = "Sorry, dates are blocked. 😞";
-                    msg.style.color = "#d9534f";
-                    
-                    if(data.blockedBy && data.blockedBy.length > 0) {
-                         msg.innerHTML += `<br><small style='font-size:0.8rem; color:#888'>Blocked by: ${data.blockedBy[0].platform}</small>`;
-                    }
-                }
-
-            } catch (err) {
-                console.error(err);
-                msg.innerText = "Error syncing calendars. Please try again.";
+        // NEW BOOKING HANDLER - Integrates with Advanced Booking System
+        async function handleBookingClick() {
+            if (!startDate || !endDate) {
+                alert("Please select both check-in and check-out dates");
+                return;
             }
 
-            btn.disabled = false;
-            btn.innerText = "Check Availability";
+            if (endDate <= startDate) {
+                alert("Check-out date must be after check-in date");
+                return;
+            }
+
+            // Call the booking system's availability handler (async)
+            await bookingSystem.handleBookingSubmit(startDate, endDate);
         }
 
         // CAROUSEL LOGIC
