@@ -166,189 +166,48 @@ class BookingModal {
     }
     
     create() {
-        const modal = document.createElement('div');
-        modal.id = 'booking-modal';
-        modal.className = 'booking-modal';
-        modal.innerHTML = `
-            <div class="booking-modal-content">
-                <!-- Close Button -->
-                <button class="modal-close" onclick="bookingSystem.modal.close()">✕</button>
-                
-                <!-- Wizard Steps -->
-                <div class="wizard-steps">
-                    <div class="step active" data-step="1">
-                        <div class="step-num">1</div>
-                        <div class="step-label">Dates</div>
-                    </div>
-                    <div class="step" data-step="2">
-                        <div class="step-num">2</div>
-                        <div class="step-label">Details</div>
-                    </div>
-                    <div class="step" data-step="3">
-                        <div class="step-num">3</div>
-                        <div class="step-label">Payment</div>
-                    </div>
-                </div>
-                
-                <!-- STEP 1: DATES/AVAILABILITY -->
-                <div class="tab-content active" id="step-1">
-                    <div class="availability-wizard">
-                        <h2>Select Your Dates</h2>
-                        <div class="date-adjuster">
-                            <div class="input-group" style="padding:0">
-                                <label style="color:#555"><i data-lucide="calendar" size="16"></i> Check In</label>
-                                <input type="text" id="wizard-checkin" placeholder="Select Date" style="border: 1px solid #ddd">
-                            </div>
-                            <div class="input-group" style="padding:0">
-                                <label style="color:#555"><i data-lucide="calendar" size="16"></i> Check Out</label>
-                                <input type="text" id="wizard-checkout" placeholder="Select Date" style="border: 1px solid #ddd">
-                            </div>
-                        </div>
-                        <div id="wizard-availability-msg" style="margin-bottom: 20px; font-weight: 600; min-height: 24px;"></div>
-                        
-                        <div id="availability-summary" style="display:none;" class="availability-details">
-                            <p><strong>Nights:</strong> <span id="wizard-nights"></span></p>
-                            <p><strong>Villa Base Price:</strong> $${BOOKING_CONFIG.basePrice}/night</p>
-                        </div>
-                        
-                        <button class="btn btn-primary" id="wizard-check-btn" onclick="bookingSystem.modal.recheckAvailability()" style="width:100%; margin-top:10px;">
-                            Check Availability
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- STEP 2: BOOKING DETAILS & ADD-ONS -->
-                <div class="tab-content" id="step-2">
-                    <div class="wizard-info-bar">
-                        <div class="dates">
-                            <i data-lucide="calendar" size="14"></i>
-                            <span id="wizard-summary-dates"></span>
-                        </div>
-                        <button class="btn-edit" onclick="bookingSystem.modal.goToStep(1)">Edit Dates</button>
-                    </div>
+        // Find existing modal in index.html instead of creating it dynamically below footer
+        const modal = document.getElementById('booking-modal');
+        if (!modal) {
+            console.warn('Booking modal template not found in HTML. Fixing UI...');
+            return;
+        }
 
-                    <div class="booking-form-section">
-                        <h3>Number of Guests</h3>
-                        <div class="guest-selector">
-                            ${this.createGuestOptions()}
-                        </div>
-                    </div>
-                    
-                    <div class="booking-form-section">
-                        <h3>Children & Toddlers</h3>
-                        <div class="kids-selector">
-                            <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Kids (10 years or younger) - $${BOOKING_CONFIG.kidPrice}/night</label>
-                                ${this.createKidsOptions()}
-                            </div>
-                            <div>
-                                <label style="display: block; margin-bottom: 8px; font-weight: 500;">Toddlers (Free)</label>
-                                ${this.createToddlersOptions()}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="booking-form-section">
-                        <h3>Pets</h3>
-                        <div class="pets-selector">
-                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Pets (Max 2) - $${BOOKING_CONFIG.petPrice}/night each</label>
-                            ${this.createPetsOptions()}
-                        </div>
-                    </div>
-                    
-                    <div class="booking-form-section">
-                        <h3>Vehicle Rental (Optional)</h3>
-                        <div class="vehicle-selector">
-                            ${this.createVehicleOptions()}
-                        </div>
-                    </div>
-                    
-                    <!-- Price Breakdown -->
-                    <div class="price-breakdown">
-                        <h4>Price Breakdown</h4>
-                        <div id="price-details" class="price-details"></div>
-                    </div>
-                </div>
-                
-                <!-- STEP 3: PAYMENT -->
-                <div class="tab-content" id="step-3">
-                    <div class="wizard-info-bar">
-                        <div class="dates">
-                            <i data-lucide="calendar" size="14"></i>
-                            <span id="wizard-summary-dates-2"></span>
-                        </div>
-                        <button class="btn-edit" onclick="bookingSystem.modal.goToStep(1)">Edit Dates</button>
-                    </div>
+        // Populate dynamic configurations from BOOKING_CONFIG
+        const basePriceEl = document.getElementById('wizard-base-price');
+        if (basePriceEl) basePriceEl.textContent = `$${BOOKING_CONFIG.basePrice}`;
 
-                    <h3>Select Payment Method</h3>
-                    
-                    <div class="payment-methods-grid">
-                        <button 
-                            class="payment-method-btn" 
-                            onclick="bookingSystem.payment.selectMethod('stripe')"
-                            id="payment-stripe"
-                        >
-                            <div class="payment-icon">💳</div>
-                            <div class="payment-name">Card Payment</div>
-                            <div class="payment-desc">Visa, Mastercard, Amex</div>
-                        </button>
-                        
-                        <button 
-                            class="payment-method-btn" 
-                            onclick="bookingSystem.payment.selectMethod('whatsapp')"
-                            id="payment-whatsapp"
-                        >
-                            <div class="payment-icon">💬</div>
-                            <div class="payment-name">Book via WhatsApp</div>
-                            <div class="payment-desc">Finalize with host</div>
-                        </button>
-                    </div>
-                    
-                    <div id="whatsapp-method-selector" style="display:none; margin-top:20px;">
-                        <label for="whatsapp-payment-method" style="display:block; margin-bottom:10px; font-weight:600;">Preferred Method:</label>
-                        <select id="whatsapp-payment-method" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; font-size:14px; background:white;">
-                            <option value="">-- Choose a method --</option>
-                            ${Object.entries(BOOKING_CONFIG.paymentMethodOptions).map(([key, method]) => `
-                                <option value="${key}">${method.icon} ${method.name} - ${method.description}</option>
-                            `).join('')}
-                        </select>
-                    </div>
-                    
-                    <div class="total-price-display">
-                        <span>Total Amount:</span>
-                        <span id="total-amount" class="amount">$0</span>
-                    </div>
+        const guestOptionsEl = document.getElementById('wizard-guest-options');
+        if (guestOptionsEl) guestOptionsEl.innerHTML = this.createGuestOptions();
 
-                    <!-- Terms & Conditions moved to Step 3 -->
-                    <div class="terms-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-                        <label class="checkbox-label">
-                            <input 
-                                type="checkbox" 
-                                id="terms-check" 
-                                onchange="bookingSystem.updateTermsAcceptance(this.checked)"
-                            >
-                            <span>I agree to the <a href="legal.html#terms" target="_blank">Terms & Conditions</a></span>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="modal-actions">
-                    <button class="btn btn-outline" id="wizard-prev" onclick="bookingSystem.modal.prevStep()" style="display:none;">Back</button>
-                    <button class="btn btn-primary" id="wizard-next" onclick="bookingSystem.modal.nextStep()" style="display:none;">Continue</button>
-                    <button 
-                        class="btn btn-primary" 
-                        id="checkout-btn"
-                        onclick="bookingSystem.payment.checkout()"
-                        style="display:none;"
-                    >
-                        Confirm Booking
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
+        const kidsLabelEl = document.getElementById('wizard-kids-label');
+        if (kidsLabelEl) kidsLabelEl.textContent = `Kids (10 years or younger) - $${BOOKING_CONFIG.kidPrice}/night`;
+
+        const kidsOptionsEl = document.getElementById('wizard-kids-options');
+        if (kidsOptionsEl) kidsOptionsEl.innerHTML = this.createKidsOptions();
+
+        const toddlersOptionsEl = document.getElementById('wizard-toddlers-options');
+        if (toddlersOptionsEl) toddlersOptionsEl.innerHTML = this.createToddlersOptions();
+
+        const petsLabelEl = document.getElementById('wizard-pets-label');
+        if (petsLabelEl) petsLabelEl.textContent = `Pets (Max 2) - $${BOOKING_CONFIG.petPrice}/night each`;
+
+        const petsOptionsEl = document.getElementById('wizard-pets-options');
+        if (petsOptionsEl) petsOptionsEl.innerHTML = this.createPetsOptions();
+
+        const vehicleOptionsEl = document.getElementById('wizard-vehicle-options');
+        if (vehicleOptionsEl) vehicleOptionsEl.innerHTML = this.createVehicleOptions();
+
+        const whatsappMethodEl = document.getElementById('whatsapp-payment-method');
+        if (whatsappMethodEl) {
+            whatsappMethodEl.innerHTML = `
+                <option value="">-- Choose a method --</option>
+                ${Object.entries(BOOKING_CONFIG.paymentMethodOptions).map(([key, method]) => `
+                    <option value="${key}">${method.icon} ${method.name} - ${method.description}</option>
+                `).join('')}
+            `;
+        }
+
         this.state = {
             checkIn: null,
             checkOut: null
@@ -366,6 +225,8 @@ class BookingModal {
                     const minOut = new Date(this.state.checkIn);
                     minOut.setDate(minOut.getDate() + 1);
                     this.wizardOutPicker.set("minDate", minOut);
+                    
+                    // Robustly sync month for the checkout picker
                     this.wizardOutPicker.jumpToDate(minOut);
                     
                     // Auto-set checkout date if invalid or empty to ensure month sync and valid range
@@ -380,6 +241,14 @@ class BookingModal {
         });
         this.wizardOutPicker = flatpickr("#wizard-checkout", {
             minDate: "today",
+            onOpen: () => {
+                // Ensure calendar view matches checkin month if no checkout picked
+                if (!this.state.checkOut && this.state.checkIn) {
+                    const syncDate = new Date(this.state.checkIn);
+                    syncDate.setDate(syncDate.getDate() + 1);
+                    this.wizardOutPicker.jumpToDate(syncDate);
+                }
+            },
             onChange: (selectedDates) => {
                 this.state.checkOut = selectedDates[0];
                 this.clearAvailability();

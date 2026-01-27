@@ -1300,8 +1300,6 @@
             .booking-bar { width: 92%; }
             .nav-logo span { font-size: 1rem; }
         }
-            .partner-perks { font-size: 0.85rem; }
-        }
 
         /* ==================== BOOKING MODAL STYLES ==================== */
         #booking-modal {
@@ -1754,7 +1752,7 @@
         /* MODAL ACTIONS */
         .modal-actions {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid #e0e0e0;
@@ -1762,8 +1760,7 @@
 
         .modal-actions .btn {
             flex: 1;
-            padding: 15px 25px;
-            font-size: 1rem;
+            padding: 12px 20px;
         }
 
         .btn-outline {
@@ -1775,49 +1772,14 @@
             cursor: pointer;
             transition: all 0.3s;
         }
+
         .btn-outline:hover {
             border-color: var(--leaf);
             color: var(--leaf);
             background: rgba(46, 139, 87, 0.05);
         }
 
-        @media (max-width: 768px) {
-            #booking-modal { padding: 0; }
-            .booking-modal-content { 
-                max-width: 100%; 
-                height: 100%; 
-                max-height: 100%; 
-                border-radius: 0; 
-                padding: 70px 20px 100px;
-            }
-            .modal-close { top: 20px; right: 20px; }
-            
-            .wizard-steps { 
-                margin-bottom: 30px;
-                padding: 0 10px;
-            }
-            .step-label { display: none; } /* Hide labels on mobile to save space */
-            
-            .modal-actions {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: white;
-                padding: 15px 20px;
-                box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-                margin: 0;
-                display: flex;
-                flex-direction: row;
-                z-index: 100;
-            }
-            .date-adjuster {
-                grid-template-columns: 1fr;
-            }
-        }
-
-            font-weight: 600;
-        }
+        .checkbox-label {
 
         .checkbox-label a:hover {
             text-decoration: underline;
@@ -2427,6 +2389,183 @@
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
         </svg>
     </a>
+
+    <!-- BOOKING MODAL (Relocated from JS) -->
+    <div id="booking-modal" class="booking-modal">
+        <div class="booking-modal-content">
+            <!-- Close Button -->
+            <button class="modal-close" onclick="bookingSystem.modal.close()">✕</button>
+            
+            <!-- Wizard Steps -->
+            <div class="wizard-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-num">1</div>
+                    <div class="step-label">Dates</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-num">2</div>
+                    <div class="step-label">Details</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-num">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+            </div>
+            
+            <!-- STEP 1: DATES/AVAILABILITY -->
+            <div class="tab-content active" id="step-1">
+                <div class="availability-wizard">
+                    <h2>Select Your Dates</h2>
+                    <div class="date-adjuster">
+                        <div class="input-group" style="padding:0">
+                            <label style="color:#555"><i data-lucide="calendar" size="16"></i> Check In</label>
+                            <input type="text" id="wizard-checkin" placeholder="Select Date" style="border: 1px solid #ddd">
+                        </div>
+                        <div class="input-group" style="padding:0">
+                            <label style="color:#555"><i data-lucide="calendar" size="16"></i> Check Out</label>
+                            <input type="text" id="wizard-checkout" placeholder="Select Date" style="border: 1px solid #ddd">
+                        </div>
+                    </div>
+                    <div id="wizard-availability-msg" style="margin-bottom: 20px; font-weight: 600; min-height: 24px;"></div>
+                    
+                    <div id="availability-summary" style="display:none;" class="availability-details">
+                        <p><strong>Nights:</strong> <span id="wizard-nights"></span></p>
+                        <p><strong>Villa Base Price:</strong> <span id="wizard-base-price"></span>/night</p>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="wizard-check-btn" onclick="bookingSystem.modal.recheckAvailability()" style="width:100%; margin-top:10px;">
+                        Check Availability
+                    </button>
+                </div>
+            </div>
+            
+            <!-- STEP 2: BOOKING DETAILS & ADD-ONS -->
+            <div class="tab-content" id="step-2">
+                <div class="wizard-info-bar">
+                    <div class="dates">
+                        <i data-lucide="calendar" size="14"></i>
+                        <span id="wizard-summary-dates"></span>
+                    </div>
+                    <button class="btn-edit" onclick="bookingSystem.modal.goToStep(1)">Edit Dates</button>
+                </div>
+
+                <div class="booking-form-section">
+                    <h3>Number of Guests</h3>
+                    <div class="guest-selector" id="wizard-guest-options">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                
+                <div class="booking-form-section">
+                    <h3>Children & Toddlers</h3>
+                    <div class="kids-selector">
+                        <div style="margin-bottom: 15px;">
+                            <label id="wizard-kids-label" style="display: block; margin-bottom: 8px; font-weight: 500;">Kids (10 years or younger)</label>
+                            <div id="wizard-kids-options"></div>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Toddlers (Free)</label>
+                            <div id="wizard-toddlers-options"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-form-section">
+                    <h3>Pets</h3>
+                    <div class="pets-selector">
+                        <label id="wizard-pets-label" style="display: block; margin-bottom: 8px; font-weight: 500;">Pets (Max 2)</label>
+                        <div id="wizard-pets-options"></div>
+                    </div>
+                </div>
+                
+                <div class="booking-form-section">
+                    <h3>Vehicle Rental (Optional)</h3>
+                    <div class="vehicle-selector" id="wizard-vehicle-options">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                
+                <!-- Price Breakdown -->
+                <div class="price-breakdown">
+                    <h4>Price Breakdown</h4>
+                    <div id="price-details" class="price-details"></div>
+                </div>
+            </div>
+            
+            <!-- STEP 3: PAYMENT -->
+            <div class="tab-content" id="step-3">
+                <div class="wizard-info-bar">
+                    <div class="dates">
+                        <i data-lucide="calendar" size="14"></i>
+                        <span id="wizard-summary-dates-2"></span>
+                    </div>
+                    <button class="btn-edit" onclick="bookingSystem.modal.goToStep(1)">Edit Dates</button>
+                </div>
+
+                <h3>Select Payment Method</h3>
+                
+                <div class="payment-methods-grid">
+                    <button 
+                        class="payment-method-btn" 
+                        onclick="bookingSystem.payment.selectMethod('stripe')"
+                        id="payment-stripe"
+                    >
+                        <div class="payment-icon">💳</div>
+                        <div class="payment-name">Card Payment</div>
+                        <div class="payment-desc">Visa, Mastercard, Amex</div>
+                    </button>
+                    
+                    <button 
+                        class="payment-method-btn" 
+                        onclick="bookingSystem.payment.selectMethod('whatsapp')"
+                        id="payment-whatsapp"
+                    >
+                        <div class="payment-icon">💬</div>
+                        <div class="payment-name">Book via WhatsApp</div>
+                        <div class="payment-desc">Finalize with host</div>
+                    </button>
+                </div>
+                
+                <div id="whatsapp-method-selector" style="display:none; margin-top:20px;">
+                    <label for="whatsapp-payment-method" style="display:block; margin-bottom:10px; font-weight:600;">Preferred Method:</label>
+                    <select id="whatsapp-payment-method" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; font-size:14px; background:white;">
+                        <option value="">-- Choose a method --</option>
+                    </select>
+                </div>
+                
+                <div class="total-price-display">
+                    <span>Total Amount:</span>
+                    <span id="total-amount" class="amount">$0</span>
+                </div>
+
+                <!-- Terms & Conditions -->
+                <div class="terms-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <label class="checkbox-label">
+                        <input 
+                            type="checkbox" 
+                            id="terms-check" 
+                            onchange="bookingSystem.updateTermsAcceptance(this.checked)"
+                        >
+                        <span>I agree to the <a href="legal.html#privacy" target="_blank">Terms & Conditions</a></span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="wizard-prev" onclick="bookingSystem.modal.prevStep()" style="display:none;">Back</button>
+                <button class="btn btn-primary" id="wizard-next" onclick="bookingSystem.modal.nextStep()" style="display:none;">Continue</button>
+                <button 
+                    class="btn btn-primary" 
+                    id="checkout-btn"
+                    onclick="bookingSystem.payment.checkout()"
+                    style="display:none;"
+                >
+                    Confirm Booking
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
