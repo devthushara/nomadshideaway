@@ -7,6 +7,10 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Icon Links -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%232E8B57' width='180' height='180'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='90' fill='white'>🏝️</text></svg>">
+
     <style>
         :root {
             --mango: #FFB347;
@@ -41,7 +45,16 @@
             transition: all 0.3s ease;
         }
 
-        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--leaf); display: flex; align-items: center; gap: 10px; }
+        .nav-logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            color: var(--leaf); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            text-decoration: none;
+        }
         .nav-logo img { height: 35px; width: auto; }
         .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; }
@@ -193,15 +206,14 @@
 </head>
 <body>
     <header class="nav-bar">
-        <div class="nav-logo">
+        <a href="index.html" class="nav-logo">
             <img src="img/logo.png" style="height: 35px; width: auto;" alt="Logo" onerror="this.style.display='none'"> 
             <span>Nomads Hideaway</span>
-        </div>
+        </a>
         <div class="hamburger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
         <nav class="nav-links" id="navLinks">
-            <a href="index.html" onclick="toggleMenu()">Home</a>
             <a href="index.html#book" onclick="toggleMenu()" class="nav-booknow">Book Now</a>
             <a href="index.html#gallery" onclick="toggleMenu()">Gallery</a>
             <a href="index.html#owners" onclick="toggleMenu()">Hosts</a>
@@ -224,23 +236,23 @@
         <!-- CANCELLATION POLICY -->
         <section class="policy-section" id="cancellation">
             <h2>Cancellation Policy</h2>
-            <p>Nomads Hideaway maintains a firm cancellation policy designed to protect the hosts' interests and ensure business stability.</p>
+            <p>Nomads Hideaway maintains a split cancellation policy designed to protect both the guest's flexibility and the hosts' interests.</p>
 
             <h3>Cancellation Timeline & Refund Rates</h3>
             <ul>
-                <li><strong>More than 60 days before arrival:</strong> 50% refund (50% retained by host)</li>
-                <li><strong>30-60 days before arrival:</strong> 25% refund (75% retained by host)</li>
-                <li><strong>15-29 days before arrival:</strong> No refund (100% retained by host)</li>
-                <li><strong>Less than 15 days before arrival:</strong> No refund (100% retained by host)</li>
+                <li><strong>More than 60 days before arrival:</strong> 100% refund (minus 10% non-refundable processing fee)</li>
+                <li><strong>30-59 days before arrival:</strong> 50% refund</li>
+                <li><strong>14-29 days before arrival:</strong> 25% refund</li>
+                <li><strong>Less than 14 days before arrival:</strong> No refund (100% retained)</li>
                 <li><strong>No-show or cancellation on arrival date:</strong> 100% charge with no refund</li>
             </ul>
 
             <div class="highlight">
-                <strong>Host Protection:</strong> These strict terms protect Lionel and Priyanka from last-minute cancellations and ensure consistent income for the property. Last-minute cancellations severely impact the hosts' ability to secure alternative bookings.
+                <strong>Non-Refundable Fee:</strong> A 10% administrative and credit card processing fee is <strong>non-refundable in all cases</strong> to cover costs incurred at the time of booking.
             </div>
 
             <h3>Special Circumstances</h3>
-            <p>The hosts may consider partial refunds or rebooking options for genuine emergencies (medical issues, death in family, travel restrictions) at their sole discretion. Requests must be submitted with supporting documentation within 48 hours of cancellation.</p>
+            <p>While we enforce a strict policy, we strongly recommend all guests purchase comprehensive **Travel Insurance**. We do not offer refunds for "Force Majeure" events (weather, flight cancellations, global health issues) beyond the rates stated above.</p>
 
             <h3>Non-Refundable Items</h3>
             <ul>
@@ -305,34 +317,22 @@
         <!-- PRIVACY POLICY -->
         <section class="policy-section" id="privacy">
             <h2>Privacy Policy</h2>
-            <p>Nomads Hideaway is committed to protecting your privacy and personal data in accordance with applicable laws.</p>
+            <p>We are committed to protecting your personal data in accordance with both Japanese and Sri Lankan data protection standards.</p>
 
             <h3>Information We Collect</h3>
             <ul>
                 <li>Name, email address, and phone number</li>
-                <li>Payment information (processed securely through booking platforms)</li>
-                <li>Booking history and dates</li>
-                <li>Special requests and dietary preferences</li>
-                <li>Guest feedback and reviews</li>
-                <li>Communication records (emails, messages)</li>
+                <li><strong>Passport details</strong> (required for local law compliance in Sri Lanka)</li>
+                <li>Payment information (handled directly by **Stripe Japan**; we do not store full card numbers)</li>
+                <li>Booking history and guest preferences</li>
             </ul>
 
-            <h3>How We Use Your Information</h3>
+            <h3>Data Usage & Security</h3>
             <ul>
-                <li>To confirm bookings and manage reservations</li>
-                <li>To communicate with you about your stay</li>
-                <li>To provide personalized recommendations and services</li>
-                <li>To improve property services and facilities</li>
-                <li>To comply with legal and tax obligations</li>
-                <li>For security and fraud prevention</li>
-            </ul>
-
-            <h3>Data Protection</h3>
-            <ul>
-                <li>Payment information is encrypted and processed securely</li>
-                <li>Personal data is stored securely and accessed only by authorized persons</li>
-                <li>We do not share personal information with third parties without consent, except as required by law</li>
-                <li>Data retention: Guest information is retained for the duration of the booking plus 5 years for legal/tax purposes</li>
+                <li>Guest details may be shared with Sri Lankan Tourist Police as required by local accommodation laws.</li>
+                <li>Financial data is processed by PCI-DSS compliant providers (Stripe).</li>
+                <li>We do not sell your personal data to third parties.</li>
+                <li>Data is retained for as long as necessary for tax and legal compliance (typically 5 years).</li>
             </ul>
 
             <h3>Your Rights</h3>
@@ -351,57 +351,94 @@
         <!-- PAYMENT TERMS -->
         <section class="policy-section" id="payment">
             <h2>Payment Terms & Conditions</h2>
-            <p>All transactions at Nomads Hideaway are processed securely and are subject to the following terms.</p>
+            <p>All transactions at Nomads Hideaway are processed securely via <strong>Stripe Japan</strong> and are subject to the following terms.</p>
+
+            <h3>Merchant of Record</h3>
+            <p>Payments are handled by our business partner: <strong>Zenergy Solutions</strong> (Ama City, Aichi Prefecture, Japan). Your credit card statement will display a charge from <strong>"ZENERGY SOLUTIONS"</strong> or <strong>"NOMADS HIDEAWAY"</strong>.</p>
 
             <h3>Accepted Payment Methods</h3>
             <ul>
-                <li>Credit/Debit Cards (Visa, Mastercard, American Express)</li>
-                <li>Digital Wallets (Apple Pay, Google Pay)</li>
-                <li>Bank Transfers</li>
-                <li>Payment through booking platforms (Airbnb, Booking.com, etc.)</li>
+                <li>Credit/Debit Cards (Visa, Mastercard, American Express, China UnionPay)</li>
+                <li>Digital Wallets (Apple Pay, Google Pay) via our secure booking portal</li>
             </ul>
 
-            <h3>Pricing & Taxes</h3>
+            <h3>Pricing & Currency</h3>
             <ul>
-                <li>All prices are quoted per night in USD or LKR as indicated</li>
-                <li>Additional charges include cleaning fees, service fees, and local taxes</li>
-                <li>Prices are subject to change for new bookings (confirmed bookings are locked)</li>
-                <li>Applicable Sri Lankan taxes and levies will be added to the final bill</li>
-            </ul>
-
-            <h3>Payment Schedule</h3>
-            <ul>
-                <li>Full payment is due upon booking confirmation</li>
-                <li>For bookings made through platforms, platform payment terms apply</li>
-                <li>Late payments may result in booking cancellation</li>
+                <li>All prices are quoted in <strong>USD</strong>.</li>
+                <li>Payments are collected in <strong>USD or Japanese Yen (JPY)</strong>.</li>
+                <li>Your bank may apply currency conversion fees if your card is not USD or JPY denominated.</li>
+                <li>Full payment is due at the time of booking confirmation.</li>
             </ul>
 
             <div class="highlight">
-                <strong>Refund Processing:</strong> Approved refunds are processed within 7-14 business days to the original payment method. Processing times vary by bank and payment method.
+                <strong>Security Deposit:</strong> A temporary pre-authorization hold of <strong>$150 USD</strong> may be placed on your card upon check-in for potential damages. This is released within 7 days of checkout.
             </div>
 
-            <h3>Chargeback & Dispute Resolution</h3>
-            <ul>
-                <li>Any disputes must be filed within 30 days of transaction</li>
-                <li>Chargebacks may result in booking cancellation and legal action</li>
-                <li>Guests agree to resolve disputes through communication with hosts before initiating chargebacks</li>
-            </ul>
-
-            <h3>Currency & Exchange</h3>
-            <p>Prices may be displayed in multiple currencies. The actual charge will be in the currency of your payment method. Exchange rates are determined by your bank or payment provider.</p>
+            <h3>Chargeback Waiver</h3>
+            <p>By completing a payment, you agree not to initiate a chargeback for subjective dissatisfaction or events outside the host's control (Force Majeure). Any fraudulent chargebacks will be contested using your signed agreement and IP logs.</p>
         </section>
 
         <!-- LOCAL LAW COMPLIANCE -->
         <section class="policy-section" id="local-law">
-            <h2>Local Law Compliance & Jurisdiction</h2>
-            <p>Nomads Hideaway operates in full compliance with Sri Lankan laws and regulations.</p>
+            <h2>Jurisdiction & Compliance</h2>
+            <p>Nomads Hideaway operates under a dual-jurisdiction framework to ensure guest safety and payment security.</p>
 
-            <h3>Legal Jurisdiction</h3>
+            <h3>Split Jurisdiction</h3>
             <ul>
-                <li>This property is registered with the relevant Sri Lankan authorities</li>
-                <li>All bookings and disputes are governed by Sri Lankan law</li>
-                <li>The venue for any legal proceedings shall be in Matara, Sri Lanka</li>
+                <li><strong>Payment & Billing Disputes:</strong> Governed by the laws of <strong>Japan</strong>. Any legal proceedings related to financial transactions shall be subject to the exclusive jurisdiction of the <strong>Nagoya District Court (Aichi Prefecture, Japan)</strong>.</li>
+                <li><strong>Property & Stay Disputes:</strong> Governed by the laws of <strong>Sri Lanka</strong>. Any disputes regarding physical damages, conduct, or local incidents shall be subject to the courts in <strong>Matara, Sri Lanka</strong>.</li>
             </ul>
+
+            <h3>Specified Commercial Transactions Act (Japan)</h3>
+            <p>Based on the Japanese <em>Tokusho-ho</em>, the following commercial details are provided:</p>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9; width: 30%;">Distributor / Merchant</th>
+                        <td style="padding: 10px;">Zenergy Solutions</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Operations Manager</th>
+                        <td style="padding: 10px;">Thushara Kasun Ranawaka</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Location</th>
+                        <td style="padding: 10px;">40-1 Kamikayazu Shirahige, Ama-shi, Aichi, Japan 490-1112</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Phone Number</th>
+                        <td style="padding: 10px;">+81 70-9162-6937</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Email Address</th>
+                        <td style="padding: 10px;">info@zenergysolutions.jp</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Website</th>
+                        <td style="padding: 10px;">https://zenergysolutions.jp/</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Selling Price</th>
+                        <td style="padding: 10px;">Displayed on the booking page (Rates in USD or Yen).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Payment Method</th>
+                        <td style="padding: 10px;">Credit Card (Visa, Mastercard, Amex, China UnionPay).</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Payment Period</th>
+                        <td style="padding: 10px;">Payments are processed immediately upon booking confirmation.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Delivery of Service</th>
+                        <td style="padding: 10px;">Accommodation is provided at the physical property in Sri Lanka on the reserved dates.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left; background: #f9f9f9;">Refund Policy</th>
+                        <td style="padding: 10px;">As stated in the Cancellation Policy section. Strict cancellation fees apply.</td>
+                    </tr>
+                </table>
+            </div>
 
             <h3>Guest Legal Obligations</h3>
             <ul>

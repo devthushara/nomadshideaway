@@ -160,6 +160,9 @@ class PriceCalculator {
 class BookingModal {
     constructor() {
         this.modal = null;
+        this.currentStep = 1;
+        this.wizardInPicker = null;
+        this.wizardOutPicker = null;
     }
     
     create() {
@@ -171,28 +174,59 @@ class BookingModal {
                 <!-- Close Button -->
                 <button class="modal-close" onclick="bookingSystem.modal.close()">✕</button>
                 
-                <!-- Modal Tabs -->
-                <div class="modal-tabs">
-                    <button class="tab-btn active" data-tab="availability">Check Availability</button>
-                    <button class="tab-btn" data-tab="details">Booking Details</button>
-                    <button class="tab-btn" data-tab="payment">Payment</button>
-                </div>
-                
-                <!-- TAB 1: AVAILABILITY -->
-                <div class="tab-content active" id="tab-availability">
-                    <h3>✓ Your Dates are Available!</h3>
-                    <div id="availability-details" class="availability-details">
-                        <p><strong>Check-in:</strong> <span id="avail-checkin"></span></p>
-                        <p><strong>Check-out:</strong> <span id="avail-checkout"></span></p>
-                        <p><strong>Nights:</strong> <span id="avail-nights"></span></p>
+                <!-- Wizard Steps -->
+                <div class="wizard-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-num">1</div>
+                        <div class="step-label">Dates</div>
                     </div>
-                    <button class="btn btn-primary" onclick="bookingSystem.modal.switchTab('details')">
-                        Continue to Details →
-                    </button>
+                    <div class="step" data-step="2">
+                        <div class="step-num">2</div>
+                        <div class="step-label">Details</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-num">3</div>
+                        <div class="step-label">Payment</div>
+                    </div>
                 </div>
                 
-                <!-- TAB 2: BOOKING DETAILS -->
-                <div class="tab-content" id="tab-details">
+                <!-- STEP 1: DATES/AVAILABILITY -->
+                <div class="tab-content active" id="step-1">
+                    <div class="availability-wizard">
+                        <h2>Select Your Dates</h2>
+                        <div class="date-adjuster">
+                            <div class="input-group" style="padding:0">
+                                <label style="color:#555"><i data-lucide="calendar" size="16"></i> Check In</label>
+                                <input type="text" id="wizard-checkin" placeholder="Select Date" style="border: 1px solid #ddd">
+                            </div>
+                            <div class="input-group" style="padding:0">
+                                <label style="color:#555"><i data-lucide="calendar" size="16"></i> Check Out</label>
+                                <input type="text" id="wizard-checkout" placeholder="Select Date" style="border: 1px solid #ddd">
+                            </div>
+                        </div>
+                        <div id="wizard-availability-msg" style="margin-bottom: 20px; font-weight: 600; min-height: 24px;"></div>
+                        
+                        <div id="availability-summary" style="display:none;" class="availability-details">
+                            <p><strong>Nights:</strong> <span id="wizard-nights"></span></p>
+                            <p><strong>Villa Base Price:</strong> $${BOOKING_CONFIG.basePrice}/night</p>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="wizard-check-btn" onclick="bookingSystem.modal.recheckAvailability()" style="width:100%; margin-top:10px;">
+                            Check Availability
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- STEP 2: BOOKING DETAILS & ADD-ONS -->
+                <div class="tab-content" id="step-2">
+                    <div class="wizard-info-bar">
+                        <div class="dates">
+                            <i data-lucide="calendar" size="14"></i>
+                            <span id="wizard-summary-dates"></span>
+                        </div>
+                        <button class="btn-edit" onclick="bookingSystem.modal.goToStep(1)">Edit Dates</button>
+                    </div>
+
                     <div class="booking-form-section">
                         <h3>Number of Guests</h3>
                         <div class="guest-selector">
@@ -234,29 +268,20 @@ class BookingModal {
                         <h4>Price Breakdown</h4>
                         <div id="price-details" class="price-details"></div>
                     </div>
-                    
-                    <!-- Terms & Conditions -->
-                    <div class="terms-section">
-                        <label class="checkbox-label">
-                            <input 
-                                type="checkbox" 
-                                id="terms-check" 
-                                onchange="bookingSystem.updateTermsAcceptance(this.checked)"
-                            >
-                            <span>I agree to the <a href="legal.html#terms" target="_blank">Terms & Conditions</a> and <a href="legal.html#privacy" target="_blank">Privacy Policy</a></span>
-                        </label>
-                    </div>
-                    
-                    <button class="btn btn-primary" onclick="bookingSystem.modal.switchTab('payment')">
-                        Choose Payment Method →
-                    </button>
                 </div>
                 
-                <!-- TAB 3: PAYMENT -->
-                <div class="tab-content" id="tab-payment">
+                <!-- STEP 3: PAYMENT -->
+                <div class="tab-content" id="step-3">
+                    <div class="wizard-info-bar">
+                        <div class="dates">
+                            <i data-lucide="calendar" size="14"></i>
+                            <span id="wizard-summary-dates-2"></span>
+                        </div>
+                        <button class="btn-edit" onclick="bookingSystem.modal.goToStep(1)">Edit Dates</button>
+                    </div>
+
                     <h3>Select Payment Method</h3>
                     
-                    <!-- Payment Methods -->
                     <div class="payment-methods-grid">
                         <button 
                             class="payment-method-btn" 
@@ -275,14 +300,13 @@ class BookingModal {
                         >
                             <div class="payment-icon">💬</div>
                             <div class="payment-name">Book via WhatsApp</div>
-                            <div class="payment-desc">Choose payment method with host</div>
+                            <div class="payment-desc">Finalize with host</div>
                         </button>
                     </div>
                     
-                    <!-- WhatsApp Payment Method Dropdown -->
                     <div id="whatsapp-method-selector" style="display:none; margin-top:20px;">
-                        <label for="whatsapp-payment-method" style="display:block; margin-bottom:10px; font-weight:600;">Select Payment Method:</label>
-                        <select id="whatsapp-payment-method" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; font-size:14px;">
+                        <label for="whatsapp-payment-method" style="display:block; margin-bottom:10px; font-weight:600;">Preferred Method:</label>
+                        <select id="whatsapp-payment-method" style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; font-size:14px; background:white;">
                             <option value="">-- Choose a method --</option>
                             ${Object.entries(BOOKING_CONFIG.paymentMethodOptions).map(([key, method]) => `
                                 <option value="${key}">${method.icon} ${method.name} - ${method.description}</option>
@@ -290,185 +314,232 @@ class BookingModal {
                         </select>
                     </div>
                     
-                    <!-- Total Price Display -->
                     <div class="total-price-display">
                         <span>Total Amount:</span>
                         <span id="total-amount" class="amount">$0</span>
+                    </div>
+
+                    <!-- Terms & Conditions moved to Step 3 -->
+                    <div class="terms-section" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <label class="checkbox-label">
+                            <input 
+                                type="checkbox" 
+                                id="terms-check" 
+                                onchange="bookingSystem.updateTermsAcceptance(this.checked)"
+                            >
+                            <span>I agree to the <a href="legal.html#terms" target="_blank">Terms & Conditions</a></span>
+                        </label>
                     </div>
                 </div>
                 
                 <!-- Action Buttons -->
                 <div class="modal-actions">
-                    <button class="btn btn-secondary" onclick="bookingSystem.modal.close()">Cancel</button>
+                    <button class="btn btn-outline" id="wizard-prev" onclick="bookingSystem.modal.prevStep()" style="display:none;">Back</button>
+                    <button class="btn btn-primary" id="wizard-next" onclick="bookingSystem.modal.nextStep()" style="display:none;">Continue</button>
                     <button 
                         class="btn btn-primary" 
                         id="checkout-btn"
                         onclick="bookingSystem.payment.checkout()"
                         style="display:none;"
                     >
-                        Complete Booking
+                        Confirm Booking
                     </button>
                 </div>
             </div>
         `;
         
         document.body.appendChild(modal);
+        this.state = {
+            checkIn: null,
+            checkOut: null
+        };
         this.modal = modal;
-        this.attachTabListeners();
+        this.initWizardPickers();
     }
     
-    createGuestOptions() {
-        let html = '';
-        for (let i = BOOKING_CONFIG.minGuests; i <= BOOKING_CONFIG.maxGuests; i++) {
-            html += `
-                <label class="radio-label">
-                    <input 
-                        type="radio" 
-                        name="guests" 
-                        value="${i}"
-                        ${i === 1 ? 'checked' : ''}
-                        onchange="bookingSystem.updateGuestCount(${i})"
-                    >
-                    <span>${i} Guest${i > 1 ? 's' : ''}</span>
-                </label>
-            `;
+    initWizardPickers() {
+        this.wizardInPicker = flatpickr("#wizard-checkin", {
+            minDate: "today",
+            onChange: (selectedDates) => {
+                this.state.checkIn = selectedDates[0];
+                if (this.state.checkIn) {
+                    const minOut = new Date(this.state.checkIn);
+                    minOut.setDate(minOut.getDate() + 1);
+                    this.wizardOutPicker.set("minDate", minOut);
+                    this.wizardOutPicker.jumpToDate(minOut);
+                    
+                    // Auto-set checkout date if invalid or empty to ensure month sync and valid range
+                    if (!this.state.checkOut || this.state.checkOut < minOut) {
+                        this.wizardOutPicker.setDate(minOut);
+                        this.state.checkOut = minOut;
+                    }
+                    
+                    this.clearAvailability();
+                }
+            }
+        });
+        this.wizardOutPicker = flatpickr("#wizard-checkout", {
+            minDate: "today",
+            onChange: (selectedDates) => {
+                this.state.checkOut = selectedDates[0];
+                this.clearAvailability();
+            }
+        });
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
         }
-        return html;
     }
-    
-    createKidsOptions() {
-        let html = '';
-        for (let i = 0; i <= BOOKING_CONFIG.maxKids; i++) {
-            html += `
-                <label class="radio-label">
-                    <input 
-                        type="radio" 
-                        name="kids" 
-                        value="${i}"
-                        ${i === 0 ? 'checked' : ''}
-                        onchange="bookingSystem.updateKids(${i})"
-                    >
-                    <span>${i === 0 ? 'None' : `${i} Kid${i > 1 ? 's' : ''}`}</span>
-                </label>
-            `;
+
+    clearAvailability() {
+        document.getElementById('wizard-availability-msg').textContent = '';
+        document.getElementById('availability-summary').style.display = 'none';
+        document.getElementById('wizard-next').style.display = 'none';
+        document.getElementById('wizard-check-btn').style.display = 'block';
+    }
+
+    async recheckAvailability() {
+        const msgEl = document.getElementById('wizard-availability-msg');
+        const btn = document.getElementById('wizard-check-btn');
+
+        if (!this.state.checkIn || !this.state.checkOut) {
+            msgEl.textContent = 'Please select both dates';
+            msgEl.style.color = '#d32f2f';
+            return;
         }
-        return html;
-    }
-    
-    createToddlersOptions() {
-        let html = '';
-        for (let i = 0; i <= BOOKING_CONFIG.maxToddlers; i++) {
-            html += `
-                <label class="radio-label">
-                    <input 
-                        type="radio" 
-                        name="toddlers" 
-                        value="${i}"
-                        ${i === 0 ? 'checked' : ''}
-                        onchange="bookingSystem.updateToddlers(${i})"
-                    >
-                    <span>${i === 0 ? 'None' : `${i} Toddler${i > 1 ? 's' : ''}`}</span>
-                </label>
-            `;
+
+        btn.disabled = true;
+        btn.textContent = 'Checking...';
+        msgEl.textContent = '';
+
+        try {
+            const avail = await AvailabilityChecker.checkAvailability(this.state.checkIn, this.state.checkOut);
+            if (avail.available) {
+                msgEl.textContent = '✓ Dates are available!';
+                msgEl.style.color = 'var(--leaf)';
+                
+                const nights = PriceCalculator.calculateNights(this.state.checkIn, this.state.checkOut);
+                bookingState.checkInDate = this.state.checkIn;
+                bookingState.checkOutDate = this.state.checkOut;
+                bookingState.nights = nights;
+                
+                document.getElementById('wizard-nights').textContent = nights;
+                document.getElementById('availability-summary').style.display = 'block';
+                document.getElementById('wizard-next').style.display = 'block';
+                btn.style.display = 'none';
+                
+                this.updateWizardSummary();
+                this.updatePriceDisplay();
+            } else {
+                msgEl.textContent = 'Sorry, these dates are not available.';
+                msgEl.style.color = '#d32f2f';
+            }
+        } catch (err) {
+            msgEl.textContent = 'Error checking availability.';
+            msgEl.style.color = '#d32f2f';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Check Availability';
         }
-        return html;
     }
-    
-    createPetsOptions() {
-        let html = '';
-        for (let i = 0; i <= BOOKING_CONFIG.maxPets; i++) {
-            html += `
-                <label class="radio-label">
-                    <input 
-                        type="radio" 
-                        name="pets" 
-                        value="${i}"
-                        ${i === 0 ? 'checked' : ''}
-                        onchange="bookingSystem.updatePets(${i})"
-                    >
-                    <span>${i === 0 ? 'None' : `${i} Pet${i > 1 ? 's' : ''}`}</span>
-                </label>
-            `;
+
+    updateWizardSummary() {
+        const datesStr = `${this.formatDateDisplay(bookingState.checkInDate)} - ${this.formatDateDisplay(bookingState.checkOutDate)} (${bookingState.nights} nights)`;
+        const el1 = document.getElementById('wizard-summary-dates');
+        const el2 = document.getElementById('wizard-summary-dates-2');
+        if (el1) el1.textContent = datesStr;
+        if (el2) el2.textContent = datesStr;
+    }
+
+    goToStep(stepNum) {
+        this.currentStep = stepNum;
+        
+        // Update steps indicator
+        document.querySelectorAll('.wizard-steps .step').forEach(step => {
+            const s = parseInt(step.getAttribute('data-step'));
+            step.classList.remove('active', 'completed');
+            if (s === stepNum) step.classList.add('active');
+            if (s < stepNum) step.classList.add('completed');
+        });
+
+        // Show/hide content
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(`step-${stepNum}`).classList.add('active');
+
+        // Actions visibility
+        const prevBtn = document.getElementById('wizard-prev');
+        const nextBtn = document.getElementById('wizard-next');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        prevBtn.style.display = stepNum > 1 ? 'block' : 'none';
+        
+        if (stepNum === 3) {
+            nextBtn.style.display = 'none';
+            checkoutBtn.style.display = 'block';
+            
+            // Ensure terms checkbox is in sync with state
+            const termsCheck = document.getElementById('terms-check');
+            if (termsCheck) {
+                termsCheck.checked = bookingState.termsAccepted;
+            }
+            
+            checkoutBtn.style.opacity = bookingState.termsAccepted ? '1' : '0.5';
+            checkoutBtn.disabled = !bookingState.termsAccepted;
+        } else {
+            nextBtn.style.display = 'block';
+            checkoutBtn.style.display = 'none';
         }
-        return html;
+
+        // Scroll to top of modal
+        document.querySelector('.booking-modal-content').scrollTop = 0;
     }
-    
-    createVehicleOptions() {
-        return Object.entries(BOOKING_CONFIG.vehicles).map(([key, vehicle]) => `
-            <label class="radio-label">
-                <input 
-                    type="radio" 
-                    name="vehicle" 
-                    value="${key}"
-                    ${key === 'none' ? 'checked' : ''}
-                    onchange="bookingSystem.updateVehicle('${key}')"
-                >
-                <span>
-                    <strong>${vehicle.name}</strong>
-                    ${vehicle.price > 0 ? `<span class="price"> +$${vehicle.price}/night</span>` : ''}
-                    <div class="small-text">${vehicle.description}</div>
-                </span>
-            </label>
-        `).join('');
+
+    nextStep() {
+        if (this.currentStep < 3) {
+            this.goToStep(this.currentStep + 1);
+        }
     }
-    
+
+    prevStep() {
+        if (this.currentStep > 1) {
+            this.goToStep(this.currentStep - 1);
+        }
+    }
+
     open(checkInDate, checkOutDate, availability) {
         bookingState.checkInDate = checkInDate;
         bookingState.checkOutDate = checkOutDate;
+        this.state.checkIn = checkInDate;
+        this.state.checkOut = checkOutDate;
         
-        // Set availability info
+        this.wizardInPicker.setDate(checkInDate);
+        this.wizardOutPicker.setDate(checkOutDate);
+        
         const nights = PriceCalculator.calculateNights(checkInDate, checkOutDate);
         bookingState.nights = nights;
         
-        document.getElementById('avail-checkin').textContent = this.formatDateDisplay(checkInDate);
-        document.getElementById('avail-checkout').textContent = this.formatDateDisplay(checkOutDate);
-        document.getElementById('avail-nights').textContent = nights;
-        
         this.modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scroll
+        
+        // Since it came from home screen available, go straight to Step 2
+        this.updateWizardSummary();
         this.updatePriceDisplay();
         
-        // Reset to availability tab
-        this.switchTab('availability');
+        // Default to stripe payment
+        if (bookingSystem.payment) {
+            bookingSystem.payment.selectMethod('stripe');
+        }
+        
+        this.goToStep(2);
     }
     
     close() {
         if (this.modal) {
             this.modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
-    }
-    
-    switchTab(tabName) {
-        // Hide all tabs
-        document.querySelectorAll('.tab-content').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        
-        // Show selected tab
-        const tab = document.getElementById(`tab-${tabName}`);
-        const btn = document.querySelector(`[data-tab="${tabName}"]`);
-        
-        if (tab) tab.classList.add('active');
-        if (btn) btn.classList.add('active');
-        
-        // Update checkout button visibility
-        const checkoutBtn = document.getElementById('checkout-btn');
-        if (tabName === 'payment' && bookingState.termsAccepted) {
-            checkoutBtn.style.display = 'block';
-        } else {
-            checkoutBtn.style.display = 'none';
-        }
-    }
-    
-    attachTabListeners() {
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const tabName = e.target.getAttribute('data-tab');
-                this.switchTab(tabName);
-            });
-        });
     }
     
     updatePriceDisplay() {
@@ -482,7 +553,6 @@ class BookingModal {
         );
         bookingState.totalPrice = prices.total;
         
-        // Update price details in modal
         const priceDetailsEl = document.getElementById('price-details');
         if (priceDetailsEl) {
             priceDetailsEl.innerHTML = `
@@ -515,7 +585,6 @@ class BookingModal {
             `;
         }
         
-        // Update total amount in payment tab
         const totalAmountEl = document.getElementById('total-amount');
         if (totalAmountEl) {
             totalAmountEl.textContent = `$${prices.total}`;
@@ -523,15 +592,111 @@ class BookingModal {
     }
     
     formatDateDisplay(date) {
+        if (!date) return '';
         const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
+    }
+
+    createGuestOptions() {
+        let html = '';
+        for (let i = BOOKING_CONFIG.minGuests; i <= BOOKING_CONFIG.maxGuests; i++) {
+            html += `
+                <label class="radio-label ${bookingState.guestCount === i ? 'active' : ''}">
+                    <input 
+                        type="radio" 
+                        name="guests" 
+                        value="${i}"
+                        ${bookingState.guestCount === i ? 'checked' : ''}
+                        onchange="bookingSystem.updateGuestCount(${i}); this.parentElement.parentElement.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active')); this.parentElement.classList.add('active');"
+                    >
+                    <span>${i} Guest${i > 1 ? 's' : ''}</span>
+                </label>
+            `;
+        }
+        return html;
+    }
+    
+    createKidsOptions() {
+        let html = '';
+        for (let i = 0; i <= BOOKING_CONFIG.maxKids; i++) {
+            html += `
+                <label class="radio-label ${bookingState.kids === i ? 'active' : ''}">
+                    <input 
+                        type="radio" 
+                        name="kids" 
+                        value="${i}"
+                        ${bookingState.kids === i ? 'checked' : ''}
+                        onchange="bookingSystem.updateKids(${i}); this.parentElement.parentElement.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active')); this.parentElement.classList.add('active');"
+                    >
+                    <span>${i === 0 ? 'None' : `${i} Kid${i > 1 ? 's' : ''}`}</span>
+                </label>
+            `;
+        }
+        return html;
+    }
+    
+    createToddlersOptions() {
+        let html = '';
+        for (let i = 0; i <= BOOKING_CONFIG.maxToddlers; i++) {
+            html += `
+                <label class="radio-label ${bookingState.toddlers === i ? 'active' : ''}">
+                    <input 
+                        type="radio" 
+                        name="toddlers" 
+                        value="${i}"
+                        ${bookingState.toddlers === i ? 'checked' : ''}
+                        onchange="bookingSystem.updateToddlers(${i}); this.parentElement.parentElement.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active')); this.parentElement.classList.add('active');"
+                    >
+                    <span>${i === 0 ? 'None' : `${i} Toddler${i > 1 ? 's' : ''}`}</span>
+                </label>
+            `;
+        }
+        return html;
+    }
+    
+    createPetsOptions() {
+        let html = '';
+        for (let i = 0; i <= BOOKING_CONFIG.maxPets; i++) {
+            html += `
+                <label class="radio-label ${bookingState.pets === i ? 'active' : ''}">
+                    <input 
+                        type="radio" 
+                        name="pets" 
+                        value="${i}"
+                        ${bookingState.pets === i ? 'checked' : ''}
+                        onchange="bookingSystem.updatePets(${i}); this.parentElement.parentElement.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active')); this.parentElement.classList.add('active');"
+                    >
+                    <span>${i === 0 ? 'None' : `${i} Pet${i > 1 ? 's' : ''}`}</span>
+                </label>
+            `;
+        }
+        return html;
+    }
+    
+    createVehicleOptions() {
+        return Object.entries(BOOKING_CONFIG.vehicles).map(([key, vehicle]) => `
+            <label class="radio-label ${bookingState.vehicle === key ? 'active' : ''}">
+                <input 
+                    type="radio" 
+                    name="vehicle" 
+                    value="${key}"
+                    ${bookingState.vehicle === key ? 'checked' : ''}
+                    onchange="bookingSystem.updateVehicle('${key}'); this.parentElement.parentElement.querySelectorAll('.radio-label').forEach(l => l.classList.remove('active')); this.parentElement.classList.add('active');"
+                >
+                <span>
+                    <strong>${vehicle.name}</strong>
+                    ${vehicle.price > 0 ? `<span class="price"> +$${vehicle.price}/night</span>` : ''}
+                    <div class="small-text">${vehicle.description}</div>
+                </span>
+            </label>
+        `).join('');
     }
 }
 
 // ==================== PAYMENT SYSTEM ====================
 class PaymentSystem {
     constructor() {
-        this.selectedMethod = null;
+        this.selectedMethod = 'stripe';
         this.stripePublicKey = 'pk_test_YOUR_STRIPE_KEY'; // TODO: Replace with actual key
     }
     
@@ -732,48 +897,24 @@ class BookingSystem {
     }
     
     async handleBookingSubmit(checkInDate, checkOutDate) {
+        // Validation handled by index.html caller usually, but good to have here too
         if (!checkInDate || !checkOutDate) {
-            alert('Please select both check-in and check-out dates');
-            return;
-        }
-        
-        if (checkOutDate <= checkInDate) {
-            alert('Check-out date must be after check-in date');
-            return;
-        }
-        
-        // Show loading state
-        const submitButton = document.querySelector('[data-booking-dates] .btn-primary');
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Checking availability...';
+            return { available: false, error: 'Please select both dates' };
         }
         
         try {
             // Check availability (async call to Netlify function)
             const availability = await AvailabilityChecker.checkAvailability(checkInDate, checkOutDate);
             
-            if (!availability.available) {
-                alert(`
-Sorry, the following dates are not available:
-${availability.unavailableDates.join(', ')}
-
-Please select different dates.
-                `);
-                return;
+            if (availability.available) {
+                // Open modal with booking details
+                this.modal.open(checkInDate, checkOutDate, availability);
             }
             
-            // Open modal with booking details
-            this.modal.open(checkInDate, checkOutDate, availability);
+            return availability;
         } catch (error) {
             console.error('Availability check error:', error);
-            alert('Unable to check availability. Please try again.');
-        } finally {
-            // Restore button state
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Check Availability';
-            }
+            throw new Error('Unable to check availability. Please try again.');
         }
     }
     

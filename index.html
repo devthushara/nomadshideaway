@@ -108,7 +108,16 @@
             transition: all 0.3s ease;
         }
 
-        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--leaf); display: flex; align-items: center; gap: 10px; }
+        .nav-logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            color: var(--leaf); 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            text-decoration: none;
+        }
         .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--mango); }
@@ -176,18 +185,24 @@
         }
 
         #typewriter {
+            display: inline-block;
+            min-height: 50px;
+            white-space: nowrap;
+        }
+
+        .typewriter-beach {
             color: var(--mango);
             font-weight: 700;
-            display: inline-block;
-            min-width: 180px;
             text-decoration: underline;
             text-decoration-color: var(--leaf);
             text-decoration-thickness: 2px;
-            text-underline-offset: 4px;            white-space: nowrap;        }
+            text-underline-offset: 4px;
+            white-space: nowrap;
+        }
 
         .distance-indicator {
             display: inline-block;
-            margin-left: 8px;
+            margin-left: 12px;
             padding: 10px 18px;
             background: rgba(46, 139, 87, 0.2);
             border-radius: 20px;
@@ -203,7 +218,7 @@
         .typewriter-cursor {
             display: inline-block;
             width: 3px;
-            height: 38px;
+            height: 1.2em;
             background: var(--mango);
             margin-left: 4px;
             animation: blink 1s infinite;
@@ -382,6 +397,43 @@
         }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(46, 139, 87, 0.3); }
         .btn-primary:disabled { background-color: #ccc; cursor: not-allowed; transform: none; }
+
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -10px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .booking-error {
+            grid-column: 1 / -1;
+            background: #fff0f0;
+            color: #d32f2f;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            border-left: 4px solid #d32f2f;
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+            text-align: left;
+        }
 
         .nav-booknow {
             background: linear-gradient(135deg, var(--mango), #FFD580) !important;
@@ -735,9 +787,11 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            overflow: hidden;
             border: 4px solid white;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transition: transform 0.3s ease;
         }
 
         .hosts-avatar img {
@@ -747,41 +801,96 @@
             border-radius: 50%;
         }
 
-        .hosts-overlay {
-            position: absolute;
-            bottom: 150px;
-            right: 30px;
-            background: rgba(255, 255, 255, 0.35);
+        .hosts-avatar .tooltip {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            padding: 20px 25px;
-            border-radius: 15px;
-            border-left: 4px solid var(--leaf);
-            max-width: 280px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid var(--mango);
+            width: 320px;
+            max-width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            z-index: 200;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            cursor: default;
+            color: #333;
+            text-align: left;
+            white-space: normal;
         }
 
-        .hosts-overlay h4 {
+        .hosts-avatar .tooltip.active {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hosts-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .close-hosts-overlay {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.4);
+            transition: color 0.2s;
+        }
+
+        .close-hosts-overlay:hover {
+            color: var(--leaf);
+        }
+
+        .partner-logos-overlay .partner-logo-tooltip {
+            position: static;
+        }
+
+        .partner-logo-tooltip .tooltip.active {
+            visibility: visible;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hosts-avatar .tooltip h4 {
             color: var(--leaf);
             margin: 0 0 10px 0;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-family: 'Playfair Display', serif;
         }
 
-        .hosts-overlay p {
+        .hosts-avatar .tooltip p {
             color: #333;
             margin: 0;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.6;
         }
 
         /* PARTNER LOGOS OVERLAY ON VILLA IMAGE */
         .partner-logos-overlay {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
+            align-items: flex-end;
             gap: 15px;
+            padding: 20px;
             z-index: 10;
+            pointer-events: none;
+        }
+
+        .partner-logo-tooltip {
+            pointer-events: auto;
         }
 
         .partner-logos-overlay .partner-logo-tooltip img {
@@ -790,10 +899,13 @@
             object-fit: contain;
             opacity: 0.85;
             filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .partner-logos-overlay .partner-logo-tooltip img:hover {
             opacity: 1;
+            transform: translateY(-5px);
         }
 
         .villa-info h2 {
@@ -865,21 +977,20 @@
             visibility: hidden;
             opacity: 0;
             position: absolute;
-            bottom: 120%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             background: white;
             color: #333;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid var(--mango);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            z-index: 100;
-            transition: opacity 0.3s ease;
-            width: 250px;
+            padding: 20px;
+            border-radius: 20px;
+            border: 3px solid var(--mango);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            z-index: 200;
+            transition: all 0.3s ease;
+            width: 300px;
             white-space: normal;
-            max-width: 90vw;
-            margin-left: -125px;
+            max-width: 90%;
         }
 
         .partner-logo-tooltip:hover .tooltip {
@@ -910,17 +1021,6 @@
 
         .partner-logo-tooltip .tooltip a:hover {
             text-decoration: underline;
-        }
-
-        .partner-logo-tooltip .tooltip::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: var(--mango) transparent transparent transparent;
         }
 
         @media (max-width: 768px) {
@@ -1163,39 +1263,43 @@
 
         /* MOBILE MENU */
         @media (max-width: 768px) {
-            header.nav-bar { top: 0; width: 100%; border-radius: 50px; }
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; }
+            header.nav-bar { 
+                top: 0; 
+                width: 100%; 
+                border-radius: 0; 
+                left: 0;
+                transform: none;
+                padding: 10px 20px;
+            }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: fixed; 
+                top: 60px; 
+                left: 0; 
+                width: 100%; 
+                background: white; 
+                padding: 30px; 
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+                text-align: center;
+                height: auto;
+                max-height: calc(100vh - 60px);
+                overflow-y: auto;
+                z-index: 1001;
+            }
             .nav-links.active { display: flex; }
             .hamburger { display: flex; }
-            .booking-bar { grid-template-columns: 1fr; margin: -60px auto 0; width: 90%; }
-            .hero-content h1 { font-size: 2.5rem; padding: 0 15px; line-height: 1.3; }
-            .connect-grid { grid-template-columns: 1fr; }
-            
-            .partners-grid { grid-template-columns: 1fr; gap: 20px; }
-            .partner-card { padding: 30px 20px; }
+            .booking-bar { grid-template-columns: 1fr; margin: -40px auto 0; width: 95%; padding: 20px; }
+            .hero-content h1 { font-size: 2.2rem; padding: 0 15px; line-height: 1.2; }
+            .proximity-badges { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .badge { padding: 10px; }
         }
 
         @media (max-width: 480px) {
-            .hero-content h1 { font-size: 1.8rem; padding: 0 10px; line-height: 1.3; }
-            .typewriter-text {
-                font-size: 1.6rem;
-                min-height: 80px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .distance-indicator {
-                margin-left: 0;
-                margin-top: 10px;
-                display: block;
-                width: 100%;
-                text-align: center;
-            }
-            .partners-section { padding: 40px 15px; margin: 40px 0; }
-            .partner-card { padding: 25px 15px; }
-            .partner-logo-container { width: 100px; height: 100px; margin-bottom: 20px; }
-            .partner-card h3 { font-size: 1.3rem; }
-            .partner-description { font-size: 0.9rem; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .booking-bar { width: 92%; }
+            .nav-logo span { font-size: 1rem; }
+        }
             .partner-perks { font-size: 0.85rem; }
         }
 
@@ -1207,12 +1311,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.85); /* Darker overlay for focus */
             justify-content: center;
             align-items: center;
             z-index: 9999;
             padding: 20px;
             animation: fadeIn 0.3s ease-in;
+            backdrop-filter: blur(8px);
         }
 
         @keyframes fadeIn {
@@ -1224,14 +1329,77 @@
             background: var(--white);
             border-radius: 20px;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px; /* Slightly wider for wizard */
             max-height: 90vh;
             overflow-y: auto;
             padding: 40px 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             position: relative;
             animation: slideUp 0.3s ease-out;
         }
+
+        /* WIZARD STEPS INDICATOR */
+        .wizard-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .wizard-steps::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #f0f0f0;
+            z-index: 0;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            z-index: 1;
+            flex: 1;
+            position: relative;
+        }
+        .step-num {
+            width: 36px;
+            height: 36px;
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #ccc;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .step.active .step-num {
+            border-color: var(--leaf);
+            color: var(--leaf);
+            background: rgba(46, 139, 87, 0.1);
+        }
+        .step.completed .step-num {
+            background: var(--leaf);
+            color: white;
+            border-color: var(--leaf);
+        }
+        .step-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .step.active .step-label { color: var(--text); }
+        .step.completed .step-label { color: var(--leaf); }
 
         @keyframes slideUp {
             from {
@@ -1255,37 +1423,14 @@
             color: #999;
             transition: color 0.2s;
             padding: 5px 10px;
+            z-index: 10;
         }
 
         .modal-close:hover {
             color: var(--text);
         }
 
-        /* MODAL TABS */
-        .modal-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 12px 20px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            color: #999;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
-
-        .tab-btn.active {
-            color: var(--leaf);
-            border-bottom-color: var(--leaf);
-        }
-
+        /* TAB/STEP CONTENT */
         .tab-content {
             display: none;
             animation: fadeIn 0.3s ease-in;
@@ -1293,6 +1438,46 @@
 
         .tab-content.active {
             display: block;
+        }
+
+        /* SIDEBAR STYLE INFO for Wizard */
+        .wizard-info-bar {
+            background: #f9f9f9;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--leaf);
+        }
+        .wizard-info-bar .dates {
+            font-size: 0.95rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        .wizard-info-bar .btn-edit {
+            font-size: 0.85rem;
+            color: var(--leaf);
+            background: none;
+            border: none;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* AVAILABILITY SECTION (STEP 1) */
+        .availability-wizard {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .availability-wizard h2 { margin-bottom: 30px; }
+        .date-adjuster {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            text-align: left;
         }
 
         /* AVAILABILITY SECTION */
@@ -1309,7 +1494,7 @@
             font-size: 0.95rem;
         }
 
-        /* BOOKING FORM SECTIONS */
+        /* BOOKING FORM SECTIONS (STEP 2) */
         .booking-form-section {
             margin-bottom: 30px;
         }
@@ -1318,6 +1503,9 @@
             margin-bottom: 15px;
             color: var(--text);
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .guest-selector,
@@ -1383,7 +1571,7 @@
             margin-top: 5px;
         }
 
-        /* PRICE BREAKDOWN */
+        /* PRICE BREAKDOWN (STEP 2/3) */
         .price-breakdown {
             background: linear-gradient(135deg, #fff9f5 0%, #f0f8f5 100%);
             padding: 20px;
@@ -1446,6 +1634,188 @@
         .checkbox-label a {
             color: var(--leaf);
             text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* PAYMENT METHODS (STEP 3) */
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .payment-method-btn {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            padding: 25px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .payment-method-btn:hover {
+            border-color: var(--leaf);
+            background: #f0f8f5;
+            transform: translateY(-2px);
+        }
+
+        .payment-method-btn.selected {
+            border-color: var(--leaf);
+            background: rgba(46, 139, 87, 0.1);
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .payment-desc {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* ALTERNATIVE METHODS */
+        .alternative-methods {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alternative-methods h4 {
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .alternative-methods .small-text {
+            margin-bottom: 15px;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .method-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px;
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .method-icon {
+            font-size: 1.8rem;
+        }
+
+        .method-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* TOTAL PRICE DISPLAY */
+        .total-price-display {
+            background: linear-gradient(135deg, #fff9f5 0%, #f0f8f5 100%);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            font-weight: 700;
+            border-left: 4px solid var(--leaf);
+        }
+
+        .amount {
+            color: var(--leaf);
+            font-size: 1.8rem;
+        }
+
+        /* MODAL ACTIONS */
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            padding: 15px 25px;
+            font-size: 1rem;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 2px solid #ddd;
+            color: #666;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover {
+            border-color: var(--leaf);
+            color: var(--leaf);
+            background: rgba(46, 139, 87, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            #booking-modal { padding: 0; }
+            .booking-modal-content { 
+                max-width: 100%; 
+                height: 100%; 
+                max-height: 100%; 
+                border-radius: 0; 
+                padding: 70px 20px 100px;
+            }
+            .modal-close { top: 20px; right: 20px; }
+            
+            .wizard-steps { 
+                margin-bottom: 30px;
+                padding: 0 10px;
+            }
+            .step-label { display: none; } /* Hide labels on mobile to save space */
+            
+            .modal-actions {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 15px 20px;
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+                margin: 0;
+                display: flex;
+                flex-direction: row;
+                z-index: 100;
+            }
+            .date-adjuster {
+                grid-template-columns: 1fr;
+            }
+        }
+
             font-weight: 600;
         }
 
@@ -1604,44 +1974,60 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .booking-modal-content {
-                padding: 25px 20px;
-                max-width: calc(100% - 20px);
-            }
-
-            .modal-tabs {
-                flex-wrap: wrap;
-                margin-bottom: 20px;
-            }
-
-            .tab-btn {
-                padding: 10px 15px;
-                font-size: 0.85rem;
-                flex: 1;
-                min-width: calc(33.33% - 7px);
-            }
-
-            .payment-methods-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .methods-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .modal-actions {
+            #booking-modal { padding: 0; }
+            .booking-modal-content { 
+                max-width: 100%; 
+                height: 100%; 
+                max-height: 100%; 
+                border-radius: 0; 
+                padding: 60px 15px 100px;
+                display: flex;
                 flex-direction: column;
+            }
+            .modal-close { top: 15px; right: 15px; background: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+            
+            .wizard-steps { 
+                margin-bottom: 25px;
+                padding: 0 10px;
+                flex-shrink: 0;
+            }
+            .step-label { display: none; }
+            
+            .tab-content {
+                flex: 1;
+                overflow-y: auto;
+                padding-bottom: 20px;
+            }
+            
+            .modal-actions {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 15px 20px;
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+                margin: 0;
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                z-index: 100;
+            }
+            .modal-actions .btn {
+                margin: 0;
+                padding: 12px 10px;
+                font-size: 0.9rem;
+                flex: 1;
+            }
+            .date-adjuster {
+                grid-template-columns: 1fr;
                 gap: 10px;
             }
-
-            .modal-actions .btn {
-                width: 100%;
-            }
-
-            .success-message {
-                left: 15px;
-                right: 15px;
-                bottom: 20px;
+            .wizard-info-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px 15px;
             }
         }
     </style>
@@ -1757,10 +2143,10 @@
 <body>
 
     <header class="nav-bar">
-        <div class="nav-logo">
+        <a href="index.html" class="nav-logo">
             <img src="img/logo.png" style="height: 35px; width: auto;" alt="Logo" onerror="this.style.display='none'"> 
             <span>Nomads Hideaway</span>
-        </div>
+        </a>
         <div class="hamburger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
@@ -1776,7 +2162,7 @@
         <div class="hero-content">
             <h1>Your Base Camp in the <span class="highlight-south">South</span></h1>
             <div class="typewriter-container">
-                <p class="typewriter-text"><span id="typewriter"><span class="typewriter-cursor">|</span></span><span class="distance-indicator" id="distance-tag"></span></p>
+                <p class="typewriter-text"><span id="typewriter"></span></p>
             </div>
             <a href="#beaches" class="beaches-hero-btn">Explore Nearby Beaches</a>
             <div class="proximity-badges">
@@ -1814,6 +2200,7 @@
             <input type="text" id="checkout" placeholder="Select Date">
         </div>
         <button onclick="handleBookingClick()" class="btn-primary" id="searchBtn">Check Availability</button>
+        <div id="bookingError" class="booking-error"></div>
     </div>
 
     <div class="ota-strip">
@@ -1829,6 +2216,100 @@
     </div>
 
 
+
+    <section class="container" id="gallery">
+        <h2 style="text-align: center;">Experience the Villa</h2>
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel-slide" style="background-image: url('img/nomads_2.jpg');" onclick="openLightbox('img/nomads_2.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_4.jpg');" onclick="openLightbox('img/nomads_4.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_5.jpg');" onclick="openLightbox('img/nomads_5.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_6.jpg');" onclick="openLightbox('img/nomads_6.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_7.jpg');" onclick="openLightbox('img/nomads_7.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_8.jpg');" onclick="openLightbox('img/nomads_8.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_9.jpg');" onclick="openLightbox('img/nomads_9.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_10.jpg');" onclick="openLightbox('img/nomads_10.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_15.jpg');" onclick="openLightbox('img/nomads_15.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_16.jpg');" onclick="openLightbox('img/nomads_16.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_18.jpg');" onclick="openLightbox('img/nomads_18.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_19.jpg');" onclick="openLightbox('img/nomads_19.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_20.jpg');" onclick="openLightbox('img/nomads_20.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_24.jpg');" onclick="openLightbox('img/nomads_24.jpg')"></div>
+            </div>
+            <button class="carousel-btn carousel-prev" onclick="prevSlide()"><i data-lucide="chevron-left" size="32"></i></button>
+            <button class="carousel-btn carousel-next" onclick="nextSlide()"><i data-lucide="chevron-right" size="32"></i></button>
+            <div class="carousel-dots" id="dotsContainer"></div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <img id="lightbox-image" src="" alt="Gallery Image">
+            <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x" size="32"></i></button>
+        </div>
+    </div>
+
+    <section class="owners-section" id="owners">
+        <div class="villa-content">
+            <div class="villa-image-container">
+                <img src="img/nomads_6.jpg" alt="Nomads Hideaway Villa" onerror="handleImageError(this)">
+                <div class="villa-overlay-text">Lionel & Priyanka</div>
+                
+                <div class="partner-logos-overlay">
+                    <div class="partner-logo-tooltip">
+                        <img src="img/ridexhub_logo.webp" alt="RideXHub" onerror="handleImageError(this)">
+                        <div class="tooltip">
+                            <h4>RideXHub</h4>
+                            <p>Bike and vehicle rentals. No deposit required, free delivery & pickup. Guest discounts available.</p>
+                            <a href="http://ridexhub.com/" target="_blank">Visit Website →</a>
+                        </div>
+                    </div>
+                    <div class="partner-logo-tooltip">
+                        <img src="img/MSCo_logs.png" alt="Matara Spice" onerror="handleImageError(this)">
+                        <div class="tooltip">
+                            <h4>Matara Spice Co.</h4>
+                            <p>Premium Ceylon cinnamon and authentic Sri Lankan spices from family-owned fields.</p>
+                            <a href="https://mataraspice.com/" target="_blank">Visit Website →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hosts-avatar">
+                    <img src="img/ammanthaththa.jpg" alt="Lionel & Priyanka" onerror="handleImageError(this)">
+                    <div class="tooltip">
+                        <span class="close-hosts-overlay">×</span>
+                        <h4>Meet Your Hosts</h4>
+                        <p><strong>Lionel</strong> (Retired Banker) & <strong>Priyanka</strong> (English Teacher)</p>
+                        <p style="font-size: 0.85rem; margin-top: 8px;">Superhost on Airbnb. Kind, humble & full of Sri Lankan hospitality—the heart of Nomads Hideaway.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="villa-info">
+                <h2>Your Home Away From Home</h2>
+                <p><strong>Nomads Hideaway</strong> is a peaceful, eco-friendly garden villa tucked away just 5 minutes from Matara Railway Station. Originally built in 1962, this charming Sri Lankan home has been lovingly maintained and thoughtfully renovated—preserving its vintage soul while offering all the comforts modern travelers need.</p>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--leaf);">Villa Features</h3>
+                <ul style="color: #666; line-height: 1.8; margin-left: 20px;">
+                    <li>Spacious bedroom with original smooth red cement floors</li>
+                    <li>Handcrafted decor and dedicated work desk</li>
+                    <li>Private entrance and tropical garden</li>
+                    <li>Outdoor seating under a mature mango tree</li>
+                    <li>Private kitchenette with modern bathroom</li>
+                    <li>Access to house kitchen for heavy cooking</li>
+                    <li>Fast Wi-Fi and 24/7 solar-powered electricity</li>
+                    <li>Cozy indoor and outdoor dining areas</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUEST REVIEWS SECTION -->
+    <section class="container" id="reviews" style="text-align: center; padding-top: 60px;">
+        <h2 style="margin-bottom: 40px;">What Our Guests Say</h2>
+        <p style="color: #666; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">Authentic reviews from travelers who've experienced Nomads Hideaway. Read verified reviews from Booking.com, Airbnb, and more.</p>
+        <div class="elfsight-app-73992642-0d9c-4ec3-b7fc-29774785b662" data-elfsight-app-lazy></div>
+    </section>
 
     <section class="container" id="beaches">
         <h2 style="text-align: center;">Your Base Camp for the South Coast</h2>
@@ -1918,101 +2399,6 @@
         </div>
     </section>
 
-    <section class="container" id="gallery">
-        <h2 style="text-align: center;">Experience the Villa</h2>
-        <div class="carousel-container">
-            <div class="carousel-wrapper">
-                <div class="carousel-slide" style="background-image: url('img/nomads_2.jpg');" onclick="openLightbox('img/nomads_2.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_4.jpg');" onclick="openLightbox('img/nomads_4.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_5.jpg');" onclick="openLightbox('img/nomads_5.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_6.jpg');" onclick="openLightbox('img/nomads_6.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_7.jpg');" onclick="openLightbox('img/nomads_7.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_8.jpg');" onclick="openLightbox('img/nomads_8.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_9.jpg');" onclick="openLightbox('img/nomads_9.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_10.jpg');" onclick="openLightbox('img/nomads_10.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_15.jpg');" onclick="openLightbox('img/nomads_15.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_16.jpg');" onclick="openLightbox('img/nomads_16.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_18.jpg');" onclick="openLightbox('img/nomads_18.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_19.jpg');" onclick="openLightbox('img/nomads_19.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_20.jpg');" onclick="openLightbox('img/nomads_20.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_24.jpg');" onclick="openLightbox('img/nomads_24.jpg')"></div>
-            </div>
-            <button class="carousel-btn carousel-prev" onclick="prevSlide()"><i data-lucide="chevron-left" size="32"></i></button>
-            <button class="carousel-btn carousel-next" onclick="nextSlide()"><i data-lucide="chevron-right" size="32"></i></button>
-            <div class="carousel-dots" id="dotsContainer"></div>
-        </div>
-    </section>
-
-    <!-- LIGHTBOX MODAL -->
-    <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <img id="lightbox-image" src="" alt="Gallery Image">
-            <button class="lightbox-close" onclick="closeLightbox()"><i data-lucide="x" size="32"></i></button>
-        </div>
-    </div>
-
-    <section class="owners-section" id="owners">
-        <div class="villa-content">
-            <div class="villa-image-container">
-                <img src="img/nomads_6.jpg" alt="Nomads Hideaway Villa" onerror="handleImageError(this)">
-                <div class="villa-overlay-text">Lionel & Priyanka</div>
-                <div class="hosts-overlay">
-                    <h4>Meet Your Hosts</h4>
-                    <p><strong>Lionel</strong> (Retired Banker) & <strong>Priyanka</strong> (English Teacher)</p>
-                    <p style="font-size: 0.85rem; margin-top: 8px;">Superhost on Airbnb. Kind, humble & full of Sri Lankan hospitality—the heart of Nomads Hideaway.</p>
-                </div>
-                <div class="partner-logos-overlay">
-                    <div class="partner-logo-tooltip">
-                        <img src="img/ridexhub_logo.webp" alt="RideXHub" onerror="handleImageError(this)">
-                        <div class="tooltip">
-                            <h4>RideXHub</h4>
-                            <p>Bike and vehicle rentals. No deposit required, free delivery & pickup. Guest discounts available.</p>
-                            <a href="http://ridexhub.com/" target="_blank">Visit Website →</a>
-                        </div>
-                    </div>
-                    <div class="partner-logo-tooltip">
-                        <img src="img/MSCo_logs.png" alt="Matara Spice" onerror="handleImageError(this)">
-                        <div class="tooltip">
-                            <h4>Matara Spice Co.</h4>
-                            <p>Premium Ceylon cinnamon and authentic Sri Lankan spices from family-owned fields.</p>
-                            <a href="https://mataraspice.com/" target="_blank">Visit Website →</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="hosts-avatar">
-                    <img src="img/ammanthaththa.jpg" alt="Lionel & Priyanka" onerror="handleImageError(this)">
-                </div>
-            </div>
-            <div class="villa-info">
-                <h2>Your Home Away From Home</h2>
-                <p><strong>Nomads Hideaway</strong> is a peaceful, eco-friendly garden villa tucked away just 5 minutes from Matara Railway Station. Originally built in 1962, this charming Sri Lankan home has been lovingly maintained and thoughtfully renovated—preserving its vintage soul while offering all the comforts modern travelers need.</p>
-                
-                <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--leaf);">Villa Features</h3>
-                <ul style="color: #666; line-height: 1.8; margin-left: 20px;">
-                    <li>Spacious bedroom with original smooth red cement floors</li>
-                    <li>Handcrafted decor and dedicated work desk</li>
-                    <li>Private entrance and tropical garden</li>
-                    <li>Outdoor seating under a mature mango tree</li>
-                    <li>Private kitchenette with modern bathroom</li>
-                    <li>Access to house kitchen for heavy cooking</li>
-                    <li>Fast Wi-Fi and 24/7 solar-powered electricity</li>
-                    <li>Cozy indoor and outdoor dining areas</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- GUEST REVIEWS SECTION -->
-    <section class="container" id="reviews" style="text-align: center; padding-top: 60px;">
-        <h2 style="margin-bottom: 40px;">What Our Guests Say</h2>
-        <p style="color: #666; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">Authentic reviews from travelers who've experienced Nomads Hideaway. Read verified reviews from Booking.com, Airbnb, and more.</p>
-        <div class="elfsight-app-73992642-0d9c-4ec3-b7fc-29774785b662" data-elfsight-app-lazy></div>
-    </section>
-
-
-
-
-
     <footer>
         <h3>Nomads Hideaway</h3>
         <p>87A Lumbini, Rahula Road, Matara 81000, Sri Lanka</p>
@@ -2074,16 +2460,16 @@
         // TYPEWRITER EFFECT
         let currentIndex = 0;
         let isDeleting = false;
-        let textContent = '';
+        let nameContent = '';
+        let infoContent = '';
+        let isTypingInfo = false;
         let typewriterEl = null;
-        let distanceEl = null;
         const typeSpeed = 80;
         const deleteSpeed = 50;
         const pauseTime = 2500;
 
         function initTypewriter() {
             typewriterEl = document.getElementById('typewriter');
-            distanceEl = document.getElementById('distance-tag');
             if (typewriterEl && BEACHES_CONFIG.length > 0) {
                 setTimeout(typeWriter, 500);
             }
@@ -2097,37 +2483,50 @@
             if (!typewriterEl || BEACHES_CONFIG.length === 0) return;
             
             const beach = BEACHES_CONFIG[currentIndex];
-            const fullText = beach.name;
+            const name = beach.name;
+            const info = `${getBeachEmojis(beach.tags)} ${beach.distance} · ${beach.time}`;
+
+            let displayHTML = '';
+            const cursorHTML = '<span class="typewriter-cursor"></span>';
+            let nextActionDelay = isDeleting ? deleteSpeed : typeSpeed;
 
             if (!isDeleting) {
-                // Typing
-                textContent = fullText.substring(0, textContent.length + 1);
-                typewriterEl.innerHTML = textContent + '<span class="typewriter-cursor">|</span>';
-                
-                if (textContent === fullText) {
-                    // Show distance, time, and emojis when fully typed
-                    const emojis = getBeachEmojis(beach.tags);
-                    distanceEl.textContent = emojis + ' ' + beach.distance + ' · ' + beach.time;
-                    distanceEl.style.opacity = '1';
-                    isDeleting = true;
-                    setTimeout(typeWriter, pauseTime);
-                    return;
+                if (!isTypingInfo) {
+                    nameContent = name.substring(0, nameContent.length + 1);
+                    displayHTML = `<span class="typewriter-beach">${nameContent}${cursorHTML}</span>`;
+                    
+                    if (nameContent === name) {
+                        isTypingInfo = true;
+                        nextActionDelay = 300;
+                    }
+                } else {
+                    infoContent = info.substring(0, infoContent.length + 1);
+                    displayHTML = `<span class="typewriter-beach">${name}</span><span class="distance-indicator" style="opacity: 1">${infoContent}${cursorHTML}</span>`;
+                    
+                    if (infoContent === info) {
+                        isDeleting = true;
+                        nextActionDelay = pauseTime;
+                    }
                 }
-                setTimeout(typeWriter, typeSpeed);
             } else {
-                // Deleting
-                textContent = fullText.substring(0, textContent.length - 1);
-                typewriterEl.innerHTML = textContent + '<span class="typewriter-cursor">|</span>';
-                distanceEl.style.opacity = '0';
-                
-                if (textContent === '') {
+                if (infoContent.length > 0) {
+                    infoContent = infoContent.substring(0, infoContent.length - 1);
+                    displayHTML = `<span class="typewriter-beach">${name}</span><span class="distance-indicator" style="opacity: 1">${infoContent}${cursorHTML}</span>`;
+                } else {
+                    isTypingInfo = false;
+                    nameContent = nameContent.substring(0, nameContent.length - 1);
+                    displayHTML = `<span class="typewriter-beach">${nameContent}${cursorHTML}</span>`;
+                }
+
+                if (nameContent === '' && infoContent === '') {
                     isDeleting = false;
                     currentIndex = (currentIndex + 1) % BEACHES_CONFIG.length;
-                    setTimeout(typeWriter, 500);
-                    return;
+                    nextActionDelay = 500;
                 }
-                setTimeout(typeWriter, deleteSpeed);
             }
+
+            typewriterEl.innerHTML = displayHTML;
+            setTimeout(typeWriter, nextActionDelay);
         }
         
         // Mobile Menu Logic
@@ -2146,33 +2545,69 @@
 
         // Calendar Logic (Matches Latest Backend)
         let startDate, endDate;
-        flatpickr("#checkin", {
+        const checkinPicker = flatpickr("#checkin", {
             minDate: "today",
-            onChange: function(d, s) { 
-                startDate = new Date(s);
+            onChange: function(selectedDates, dateStr) { 
+                startDate = selectedDates[0];
+                if (startDate) {
+                    const minCheckoutDate = new Date(startDate);
+                    minCheckoutDate.setDate(minCheckoutDate.getDate() + 1);
+                    checkoutPicker.set("minDate", minCheckoutDate);
+                    checkoutPicker.jumpToDate(minCheckoutDate);
+
+                    // Auto-set checkout date if it's currently invalid (before new minDate) or empty
+                    if (!endDate || endDate < minCheckoutDate) {
+                        checkoutPicker.setDate(minCheckoutDate);
+                        endDate = minCheckoutDate;
+                    }
+                    
+                    // Clear error message when dates change
+                    document.getElementById('bookingError').style.display = 'none';
+                }
             }
         });
-        let checkoutPicker = flatpickr("#checkout", { 
+        const checkoutPicker = flatpickr("#checkout", { 
             minDate: "today", 
-            onChange: function(d, s) { 
-                endDate = new Date(s);
+            onChange: function(selectedDates, dateStr) { 
+                endDate = selectedDates[0];
+                // Clear error message when dates change
+                document.getElementById('bookingError').style.display = 'none';
             }
         });
 
         // NEW BOOKING HANDLER - Integrates with Advanced Booking System
         async function handleBookingClick() {
+            const btn = document.getElementById('searchBtn');
+            const errorEl = document.getElementById('bookingError');
+            
             if (!startDate || !endDate) {
-                alert("Please select both check-in and check-out dates");
+                errorEl.textContent = "Please select both check-in and check-out dates";
+                errorEl.style.display = 'block';
                 return;
             }
 
             if (endDate <= startDate) {
-                alert("Check-out date must be after check-in date");
+                errorEl.textContent = "Check-out date must be after check-in date";
+                errorEl.style.display = 'block';
                 return;
             }
 
-            // Call the booking system's availability handler (async)
-            await bookingSystem.handleBookingSubmit(startDate, endDate);
+            errorEl.style.display = 'none';
+            btn.classList.add('btn-loading');
+
+            try {
+                // Call the booking system's availability handler (async)
+                const result = await bookingSystem.handleBookingSubmit(startDate, endDate);
+                if (result && !result.available) {
+                    errorEl.textContent = "Sorry, these dates are not available. Please try other dates.";
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                errorEl.textContent = err.message || "An error occurred. Please try again.";
+                errorEl.style.display = 'block';
+            } finally {
+                btn.classList.remove('btn-loading');
+            }
         }
 
         // CAROUSEL LOGIC
@@ -2297,11 +2732,62 @@
             window.open(mapsUrl, '_blank');
         }
 
+        function initInteractions() {
+            // Hosts Overlay logic
+            const hostsAvatar = document.querySelector('.hosts-avatar');
+            const hostsTooltip = hostsAvatar ? hostsAvatar.querySelector('.tooltip') : null;
+            const closeHosts = hostsAvatar ? hostsAvatar.querySelector('.close-hosts-overlay') : null;
+
+            if (hostsAvatar && hostsTooltip) {
+                hostsAvatar.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close partner tooltips if open
+                    document.querySelectorAll('.partner-logos-overlay .tooltip.active').forEach(t => t.classList.remove('active'));
+                    hostsTooltip.classList.toggle('active');
+                });
+
+                if (closeHosts) {
+                    closeHosts.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        hostsTooltip.classList.remove('active');
+                    });
+                }
+            }
+
+            // Partner Tooltips (Click to open)
+            const partnerTooltips = document.querySelectorAll('.partner-logos-overlay .partner-logo-tooltip');
+            partnerTooltips.forEach(item => {
+                const img = item.querySelector('img');
+                const tooltip = item.querySelector('.tooltip');
+                
+                if (img && tooltip) {
+                    img.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // Close hosts tooltip if open
+                        if (hostsTooltip) hostsTooltip.classList.remove('active');
+                        
+                        // Close other partner tooltips
+                        document.querySelectorAll('.partner-logos-overlay .tooltip.active').forEach(t => {
+                            if (t !== tooltip) t.classList.remove('active');
+                        });
+                        tooltip.classList.toggle('active');
+                    });
+                }
+            });
+
+            // Close everything when clicking outside
+            document.addEventListener('click', () => {
+                if (hostsTooltip) hostsTooltip.classList.remove('active');
+                document.querySelectorAll('.tooltip.active').forEach(t => t.classList.remove('active'));
+            });
+        }
+
         // Initialize everything when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     initCarouselOnLoad();
+                    initInteractions();
                     if (typeof lucide !== 'undefined') {
                         lucide.createIcons();
                     }
@@ -2310,6 +2796,7 @@
         } else {
             setTimeout(() => {
                 initCarouselOnLoad();
+                initInteractions();
                 if (typeof lucide !== 'undefined') {
                     lucide.createIcons();
                 }
