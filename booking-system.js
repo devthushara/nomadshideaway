@@ -32,10 +32,10 @@ const BOOKING_CONFIG = {
     
     // Payment methods
     paymentMethods: {
-        stripe: {
-            name: 'Card Payment',
+        yourrentals: {
+            name: 'Credit Card',
             icon: '💳',
-            description: 'Visa, Mastercard, Amex'
+            description: 'Pay via Your.Rentals'
         },
         whatsapp: {
             name: 'Book via WhatsApp',
@@ -64,7 +64,6 @@ const bookingState = {
     pets: 0,
     vehicle: 'none',
     termsAccepted: false,
-    totalPrice: 0,
     
     reset() {
         this.checkInDate = null;
@@ -76,7 +75,6 @@ const bookingState = {
         this.pets = 0;
         this.vehicle = 'none';
         this.termsAccepted = false;
-        this.totalPrice = 0;
     }
 };
 
@@ -91,7 +89,6 @@ class AvailabilityChecker {
     
     static async checkAvailability(checkInDate, checkOutDate) {
         try {
-            // Call Netlify function which syncs with master Google Calendar + OTA calendars
             const response = await fetch('/.netlify/functions/check-availability', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -101,20 +98,15 @@ class AvailabilityChecker {
                 })
             });
             
-            if (!response.ok) {
-                throw new Error('Availability check failed');
-            }
+            if (!response.ok) throw new Error('Availability check failed');
             
             const data = await response.json();
             return {
                 available: data.available,
-                unavailableDates: data.unavailableDates || [],
-                dateRange: data.dateRange || [],
-                pricing: data.pricing || {}
+                blockedBy: data.blockedBy || []
             };
         } catch (error) {
             console.error('Error checking availability:', error);
-            // Fallback: show error to user
             throw new Error('Unable to check availability. Please try again.');
         }
     }
@@ -173,15 +165,11 @@ class BookingModal {
             return;
         }
 
-        // Populate dynamic configurations from BOOKING_CONFIG
-        const basePriceEl = document.getElementById('wizard-base-price');
-        if (basePriceEl) basePriceEl.textContent = `$${BOOKING_CONFIG.basePrice}`;
-
         const guestOptionsEl = document.getElementById('wizard-guest-options');
         if (guestOptionsEl) guestOptionsEl.innerHTML = this.createGuestOptions();
 
         const kidsLabelEl = document.getElementById('wizard-kids-label');
-        if (kidsLabelEl) kidsLabelEl.textContent = `Kids (10 years or younger) - $${BOOKING_CONFIG.kidPrice}/night`;
+        if (kidsLabelEl) kidsLabelEl.textContent = `Children (10 years or younger)`;
 
         const kidsOptionsEl = document.getElementById('wizard-kids-options');
         if (kidsOptionsEl) kidsOptionsEl.innerHTML = this.createKidsOptions();
@@ -190,7 +178,7 @@ class BookingModal {
         if (toddlersOptionsEl) toddlersOptionsEl.innerHTML = this.createToddlersOptions();
 
         const petsLabelEl = document.getElementById('wizard-pets-label');
-        if (petsLabelEl) petsLabelEl.textContent = `Pets (Max 2) - $${BOOKING_CONFIG.petPrice}/night each`;
+        if (petsLabelEl) petsLabelEl.textContent = `Pets`;
 
         const petsOptionsEl = document.getElementById('wizard-pets-options');
         if (petsOptionsEl) petsOptionsEl.innerHTML = this.createPetsOptions();
@@ -396,9 +384,9 @@ class BookingModal {
         this.updateWizardSummary();
         this.updatePriceDisplay();
         
-        // Default to stripe payment
+        // Default to Your.Rentals payment
         if (bookingSystem.payment) {
-            bookingSystem.payment.selectMethod('stripe');
+            bookingSystem.payment.selectMethod('yourrentals');
         }
         
         this.goToStep(2);
@@ -412,51 +400,40 @@ class BookingModal {
     }
     
     updatePriceDisplay() {
-        const prices = PriceCalculator.calculateTotal(
-            bookingState.nights,
-            bookingState.guestCount,
-            bookingState.vehicle,
-            bookingState.kids,
-            bookingState.toddlers,
-            bookingState.pets
-        );
-        bookingState.totalPrice = prices.total;
-        
         const priceDetailsEl = document.getElementById('price-details');
         if (priceDetailsEl) {
             priceDetailsEl.innerHTML = `
                 <div class="price-line">
-                    <span>Room (${bookingState.nights} nights × $${BOOKING_CONFIG.basePrice})</span>
-                    <span>$${prices.roomCost}</span>
+                    <span>Stay Duration</span>
+                    <span>${bookingState.nights} nights</span>
                 </div>
-                ${prices.vehicleCost > 0 ? `
+                <div class="price-line">
+                    <span>Adults</span>
+                    <span>${bookingState.guestCount}</span>
+                </div>
+                ${bookingState.kids > 0 ? `
                     <div class="price-line">
-                        <span>${BOOKING_CONFIG.vehicles[bookingState.vehicle].name} (${bookingState.nights} nights × $${BOOKING_CONFIG.vehicles[bookingState.vehicle].price})</span>
-                        <span>$${prices.vehicleCost}</span>
+                        <span>Children</span>
+                        <span>${bookingState.kids}</span>
                     </div>
                 ` : ''}
-                ${prices.kidsCost > 0 ? `
+                ${bookingState.toddlers > 0 ? `
                     <div class="price-line">
-                        <span>Kids (${bookingState.nights} nights × ${bookingState.kids} × $${BOOKING_CONFIG.kidPrice})</span>
-                        <span>$${prices.kidsCost}</span>
+                        <span>Infants</span>
+                        <span>${bookingState.toddlers}</span>
                     </div>
                 ` : ''}
-                ${prices.petsCost > 0 ? `
+                ${bookingState.pets > 0 ? `
                     <div class="price-line">
-                        <span>Pets (${bookingState.nights} nights × ${bookingState.pets} × $${BOOKING_CONFIG.petPrice})</span>
-                        <span>$${prices.petsCost}</span>
+                        <span>Pets</span>
+                        <span>${bookingState.pets}</span>
                     </div>
                 ` : ''}
-                <div class="price-line total">
-                    <span>Total</span>
-                    <span>$${prices.total}</span>
+                <div class="price-line">
+                    <span>Vehicle</span>
+                    <span>${BOOKING_CONFIG.vehicles[bookingState.vehicle].name}</span>
                 </div>
             `;
-        }
-        
-        const totalAmountEl = document.getElementById('total-amount');
-        if (totalAmountEl) {
-            totalAmountEl.textContent = `$${prices.total}`;
         }
     }
     
@@ -554,7 +531,6 @@ class BookingModal {
                 >
                 <span>
                     <strong>${vehicle.name}</strong>
-                    ${vehicle.price > 0 ? `<span class="price"> +$${vehicle.price}/night</span>` : ''}
                     <div class="small-text">${vehicle.description}</div>
                 </span>
             </label>
@@ -565,8 +541,7 @@ class BookingModal {
 // ==================== PAYMENT SYSTEM ====================
 class PaymentSystem {
     constructor() {
-        this.selectedMethod = 'stripe';
-        this.stripePublicKey = 'pk_test_YOUR_STRIPE_KEY'; // TODO: Replace with actual key
+        this.selectedMethod = 'yourrentals';
     }
     
     selectMethod(method) {
@@ -593,8 +568,8 @@ class PaymentSystem {
             return;
         }
         
-        if (this.selectedMethod === 'stripe') {
-            this.handleStripeCheckout();
+        if (this.selectedMethod === 'yourrentals') {
+            this.handleYourRentalsCheckout();
         } else if (this.selectedMethod === 'whatsapp') {
             let selectedOption = document.getElementById('whatsapp-payment-method')?.value;
             // If no method selected, proceed with 'To be discussed'
@@ -605,36 +580,50 @@ class PaymentSystem {
         }
     }
     
-    handleStripeCheckout() {
-        console.log('Redirecting to Stripe checkout...');
+    handleYourRentalsCheckout() {
+        // Construct Your.Rentals URL
+        // https://app.your.rentals/en/book/128668?scid=PMDR&check-in=2026-05-20&check-out=2026-05-21&adults=2&children=0&infants=1&cancel-policy-name=SuperFlexible&currency=USD
         
-        const bookingDetails = {
-            checkIn: bookingState.checkInDate.toISOString().split('T')[0],
-            checkOut: bookingState.checkOutDate.toISOString().split('T')[0],
-            nights: bookingState.nights,
-            guests: bookingState.guestCount,
+        const checkIn = bookingState.checkInDate.toISOString().split('T')[0];
+        const checkOut = bookingState.checkOutDate.toISOString().split('T')[0];
+        const adults = bookingState.guestCount;
+        const children = bookingState.kids;
+        const infants = bookingState.toddlers;
+        
+        const baseUrl = "https://app.your.rentals/en/book/128668";
+        const params = new URLSearchParams({
+            scid: 'PMDR',
+            'check-in': checkIn,
+            'check-out': checkOut,
+            adults: adults,
+            children: children,
+            infants: infants,
+            'cancel-policy-name': 'SuperFlexible',
+            currency: 'USD'
+        });
+        
+        const finalUrl = `${baseUrl}?${params.toString()}`;
+        
+        console.log('Redirecting to Your.Rentals:', finalUrl);
+        
+        // Store booking info locally before redirect
+        this.storeBooking({
+            checkIn,
+            checkOut,
+            adults,
+            children,
+            infants,
             vehicle: bookingState.vehicle,
-            totalPrice: bookingState.totalPrice
-        };
+            platform: 'yourrentals'
+        }, 'yourrentals');
+
+        // Open in new tab
+        window.open(finalUrl, '_blank');
         
-        // TODO: In production, call Netlify function to create Stripe session
-        // For now, show confirmation
-        console.log('Stripe Checkout Details:', bookingDetails);
+        // Close modal
+        bookingSystem.modal.close();
         
-        // Simulate Stripe redirect (in production, use actual Stripe.redirectToCheckout)
-        alert(`
-            🔐 Stripe Checkout
-            
-            Total: $${bookingState.totalPrice}
-            Dates: ${bookingDetails.checkIn} to ${bookingDetails.checkOut}
-            Guests: ${bookingDetails.guests}
-            Vehicle: ${BOOKING_CONFIG.vehicles[bookingState.vehicle].name}
-            
-            In production, this would redirect to Stripe payment page.
-        `);
-        
-        // Store booking for backend processing
-        this.storeBooking(bookingDetails, 'stripe');
+        this.showSuccessMessage('Redirecting to secure payment page...');
     }
     
     handleWhatsAppCheckout(paymentMethod) {
@@ -643,7 +632,7 @@ class PaymentSystem {
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${BOOKING_CONFIG.whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`;
         
-        // Store booking for backend processing
+        // Store booking
         const bookingDetails = {
             checkIn: bookingState.checkInDate.toISOString().split('T')[0],
             checkOut: bookingState.checkOutDate.toISOString().split('T')[0],
@@ -651,8 +640,7 @@ class PaymentSystem {
             guests: bookingState.guestCount,
             vehicle: bookingState.vehicle,
             paymentMethod: paymentMethod || 'tbd',
-            paymentMethodName: paymentMethodInfo ? paymentMethodInfo.name : 'To be discussed',
-            totalPrice: bookingState.totalPrice
+            paymentMethodName: paymentMethodInfo ? paymentMethodInfo.name : 'To be discussed'
         };
         this.storeBooking(bookingDetails, 'whatsapp');
         
@@ -697,7 +685,6 @@ class PaymentSystem {
         message += `
 🚲 Vehicle: ${vehicle}
 
-💰 Total: $${bookingState.totalPrice}
 💳 Preferred Payment: ${paymentMethod}
 
 Please confirm this booking.`;
@@ -766,17 +753,14 @@ class BookingSystem {
     }
     
     async handleBookingSubmit(checkInDate, checkOutDate) {
-        // Validation handled by index.html caller usually, but good to have here too
         if (!checkInDate || !checkOutDate) {
             return { available: false, error: 'Please select both dates' };
         }
         
         try {
-            // Check availability (async call to Netlify function)
             const availability = await AvailabilityChecker.checkAvailability(checkInDate, checkOutDate);
             
             if (availability.available) {
-                // Open modal with booking details
                 this.modal.open(checkInDate, checkOutDate, availability);
             }
             

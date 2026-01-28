@@ -38,7 +38,7 @@
         "phone": "+65 9425 2874"
       }
     ],
-    "photo": "img/ammanthaththa.jpg"
+    "photo": "img/ammanthaththa.webp"
   },
   "pricing": {
     "basePricePerNight": 120,
@@ -46,23 +46,23 @@
     "currency": "USD"
   },
   "images": {
-    "logo": "img/logo.png",
-    "hero": "img/nomads_24.jpg",
+    "logo": "img/logo.webp",
+    "hero": "img/nomads_24.webp",
     "gallery": [
-      "img/nomads_2.jpg",
-      "img/nomads_4.jpg",
-      "img/nomads_5.jpg",
-      "img/nomads_6.jpg",
-      "img/nomads_7.jpg",
-      "img/nomads_8.jpg",
-      "img/nomads_9.jpg",
-      "img/nomads_10.jpg",
-      "img/nomads_15.jpg",
-      "img/nomads_16.jpg",
-      "img/nomads_18.jpg",
-      "img/nomads_19.jpg",
-      "img/nomads_20.jpg",
-      "img/nomads_24.jpg"
+      "img/nomads_2.webp",
+      "img/nomads_4.webp",
+      "img/nomads_5.webp",
+      "img/nomads_6.webp",
+      "img/nomads_7.webp",
+      "img/nomads_8.webp",
+      "img/nomads_9.webp",
+      "img/nomads_10.webp",
+      "img/nomads_15.webp",
+      "img/nomads_16.webp",
+      "img/nomads_18.webp",
+      "img/nomads_19.webp",
+      "img/nomads_20.webp",
+      "img/nomads_24.webp"
     ]
   },
   "beaches": [
@@ -212,7 +212,7 @@
     {
       "name": "Matara Spice",
       "category": "Premium Spices",
-      "logo": "img/MSCo_logs.png",
+      "logo": "img/MSCo_logs.webp",
       "description": "Authentic Sri Lankan spices sourced from our family business. Bring home the essence of Sri Lanka: premium cinnamon, black pepper, cloves, cardamom, nutmeg, and much more.",
       "perks": [
         "Farm-Fresh Quality",
@@ -250,7 +250,8 @@
     "description": "Authentic reviews from travelers who've experienced Nomads Hideaway. Read verified reviews from Booking.com, Airbnb, and more.",
     "elfsightAppId": "73992642-0d9c-4ec3-b7fc-29774785b662"
   },
-  "stripe": {
-    "paymentLink": "https://buy.stripe.com/YOUR_STRIPE_LINK"
+  "yourrentals": {
+    "propertyId": "128668",
+    "scid": "PMDR"
   }
 }

@@ -25,12 +25,12 @@
   "categories": ["travel", "hospitality", "accommodation"],
   "screenshots": [
     {
-      "src": "img/nomads_24.jpg",
+      "src": "img/nomads_24.webp",
       "sizes": "540x720",
       "type": "image/jpeg"
     },
     {
-      "src": "img/nomads_6.jpg",
+      "src": "img/nomads_6.webp",
       "sizes": "540x720",
       "type": "image/jpeg"
     }

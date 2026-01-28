@@ -10,11 +10,11 @@
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://nomadshideaway.com/img/nomads_24.jpg</image:loc>
+            <image:loc>https://nomadshideaway.com/img/nomads_24.webp</image:loc>
             <image:title>Nomads Hideaway - Southern Sri Lanka</image:title>
         </image:image>
         <image:image>
-            <image:loc>https://nomadshideaway.com/img/nomads_6.jpg</image:loc>
+            <image:loc>https://nomadshideaway.com/img/nomads_6.webp</image:loc>
             <image:title>Nomads Hideaway Villa</image:title>
         </image:image>
     </url>

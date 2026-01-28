@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://nomadshideaway.com/">
     <meta property="og:title" content="Nomads Hideaway | Eco-Friendly Villa in Southern Sri Lanka">
     <meta property="og:description" content="Peaceful, eco-friendly garden villa in Matara, 5 minutes from the railway station. Perfect base camp for exploring Southern Sri Lanka's best beaches. Hosted by Superhosts.">
-    <meta property="og:image" content="https://nomadshideaway.com/img/nomads_24.jpg">
+    <meta property="og:image" content="https://nomadshideaway.com/img/nomads_24.webp">
     <meta property="og:image:alt" content="Nomads Hideaway - Eco-friendly garden villa in Matara, Southern Sri Lanka">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -31,7 +31,7 @@
     <meta name="twitter:url" content="https://nomadshideaway.com/">
     <meta name="twitter:title" content="Nomads Hideaway | Eco-Friendly Villa in Southern Sri Lanka">
     <meta name="twitter:description" content="Discover the perfect base camp for exploring Southern Sri Lanka's best beaches. Book your stay at Nomads Hideaway today!">
-    <meta name="twitter:image" content="https://nomadshideaway.com/img/nomads_24.jpg">
+    <meta name="twitter:image" content="https://nomadshideaway.com/img/nomads_24.webp">
     <meta name="twitter:creator" content="@nomadshideaway">
     
     <!-- Geo Tags -->
@@ -117,19 +117,24 @@
             align-items: center; 
             gap: 10px; 
             text-decoration: none;
+            min-width: 0;
+            flex-shrink: 1;
         }
+        
+        .nav-logo img { max-width: 35px; height: auto; }
+        .nav-logo span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
         .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; }
         .nav-links a:hover { color: var(--mango); }
         
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; flex-shrink: 0; z-index: 1002; }
         .hamburger span { width: 25px; height: 3px; background: var(--text); border-radius: 2px; }
 
         /* HERO SECTION */
         .hero {
             height: 90vh;
             min-height: 500px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('img/nomads_24.jpg');
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('img/nomads_24.webp');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -138,6 +143,15 @@
             text-align: center;
             color: var(--white);
             padding: 20px;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero { padding-top: 80px; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero { padding-top: 70px; }
         }
 
         .hero-content { max-width: 800px; }
@@ -166,22 +180,26 @@
         /* TYPEWRITER EFFECT */
         .typewriter-container {
             position: relative;
-            display: inline-block;
+            display: block;
             margin-top: 20px;
+            max-width: 100%;
+            overflow: hidden;
         }
 
         .typewriter-text {
             font-size: 2.2rem;
             color: #f0f0f0;
             text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-            margin: 0;
+            margin: 0 auto;
             font-weight: 400;
             letter-spacing: 0.5px;
             min-height: 50px;
             display: flex;
             align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 8px;
+            width: 100%;
         }
 
         #typewriter {
@@ -379,10 +397,11 @@
             gap: 20px;
             align-items: end;
             border: 2px solid rgba(255, 255, 255, 0.3);
+            box-sizing: border-box;
         }
 
         .input-group label { color: #333; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
-        .input-group input { width: 100%; padding: 15px; border: none; border-radius: 10px; font-family: 'Inter'; font-size: 1rem; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .input-group input { width: 100%; padding: 15px; border: none; border-radius: 10px; font-family: 'Inter'; font-size: 1rem; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); box-sizing: border-box; }
 
         .btn-primary {
             background-color: var(--leaf);
@@ -541,6 +560,9 @@
                 padding-bottom: 15px;
                 scroll-behavior: smooth;
                 -webkit-overflow-scrolling: touch;
+                box-sizing: border-box;
+                padding-left: 20px;
+                padding-right: 20px;
             }
 
             .beach-card {
@@ -801,8 +823,8 @@
             border-radius: 50%;
         }
 
-        .hosts-avatar .tooltip {
-            position: fixed;
+        .hosts-tooltip {
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -825,7 +847,7 @@
             white-space: normal;
         }
 
-        .hosts-avatar .tooltip.active {
+        .hosts-tooltip.active {
             visibility: visible;
             opacity: 1;
             pointer-events: auto;
@@ -860,14 +882,14 @@
             pointer-events: auto;
         }
 
-        .hosts-avatar .tooltip h4 {
+        .hosts-tooltip h4 {
             color: var(--leaf);
             margin: 0 0 10px 0;
             font-size: 1.2rem;
             font-family: 'Playfair Display', serif;
         }
 
-        .hosts-avatar .tooltip p {
+        .hosts-tooltip p {
             color: #333;
             margin: 0;
             font-size: 0.95rem;
@@ -1041,25 +1063,59 @@
 
             .villa-image-container {
                 position: relative;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .partner-logos-overlay {
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .partner-logos-overlay .partner-logo-tooltip img {
+                height: 45px;
             }
 
             .villa-overlay-text {
-                font-size: 1.6rem;
-                top: 20px;
-                left: 20px;
+                font-size: 1.4rem;
+                top: 15px;
+                left: 15px;
             }
 
             .hosts-avatar {
-                width: 100px;
-                height: 100px;
-                bottom: 15px;
-                right: 15px;
+                width: 90px;
+                height: 90px;
+                bottom: 10px;
+                right: 10px;
                 border-width: 3px;
+                z-index: 20;
             }
 
             .villa-info h2 {
                 font-size: 1.8rem;
             }
+
+            /* OTA Strip - Better Grid on Mobile */
+            .ota-logos {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 0 15px;
+            }
+            .ota-btn {
+                justify-content: center;
+                padding: 10px 12px;
+                font-size: 0.8rem;
+            }
+            
+            /* Success Message Mobile Alignment */
+            .success-message {
+                left: 20px;
+                right: 20px;
+                top: 80px;
+                text-align: center;
+            }
+        
 
             .hosts-container {
                 grid-template-columns: 1fr;
@@ -1263,42 +1319,85 @@
 
         /* MOBILE MENU */
         @media (max-width: 768px) {
+            html {
+                overflow-x: hidden;
+            }
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
             header.nav-bar { 
                 top: 0; 
-                width: 100%; 
+                width: 100vw;
+                box-sizing: border-box;
                 border-radius: 0; 
                 left: 0;
                 transform: none;
                 padding: 10px 20px;
+                height: 70px; /* Fixed height for consistency */
+            }
+            .nav-logo {
+                flex-shrink: 1;
+                min-width: 0;
+            }
+            .nav-logo span {
+                font-size: 1.1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .nav-links { 
                 display: none; 
                 flex-direction: column; 
                 position: fixed; 
-                top: 60px; 
+                top: 70px; /* Match header height */
                 left: 0; 
-                width: 100%; 
+                right: 0;
+                width: 100%;
+                box-sizing: border-box;
                 background: white; 
-                padding: 30px; 
+                padding: 20px 30px; 
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
                 text-align: center;
                 height: auto;
-                max-height: calc(100vh - 60px);
+                max-height: calc(100vh - 70px);
                 overflow-y: auto;
+                overflow-x: hidden;
                 z-index: 1001;
+                gap: 15px;
             }
             .nav-links.active { display: flex; }
+            .nav-links a { padding: 8px 0; display: block; }
             .hamburger { display: flex; }
-            .booking-bar { grid-template-columns: 1fr; margin: -40px auto 0; width: 95%; padding: 20px; }
-            .hero-content h1 { font-size: 2.2rem; padding: 0 15px; line-height: 1.2; }
+            .booking-bar { grid-template-columns: 1fr; margin: -40px auto 30px; width: calc(100% - 40px); max-width: 95%; padding: 20px; gap: 15px; }
+            .hero-content h1 { font-size: 2rem; padding: 0 15px; line-height: 1.2; }
             .proximity-badges { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .badge { padding: 10px; }
+            
+            /* TYPEWRITER OVERFLOW FIX */
+            .typewriter-text { font-size: 1.4rem; min-height: 80px; justify-content: center; }
+            #typewriter { white-space: normal; text-align: center; display: inline; }
+            .distance-indicator { margin-left: 0; margin-top: 10px; font-size: 0.9rem; white-space: normal; }
         }
 
         @media (max-width: 480px) {
-            .hero-content h1 { font-size: 1.8rem; }
-            .booking-bar { width: 92%; }
-            .nav-logo span { font-size: 1rem; }
+            html {
+                overflow-x: hidden;
+            }
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            header.nav-bar { 
+                height: 60px;
+                width: 100vw;
+                box-sizing: border-box;
+                padding: 10px 15px;
+            }
+            .nav-links { top: 60px; max-height: calc(100vh - 60px); padding: 15px 20px; box-sizing: border-box; width: 100vw; overflow-x: hidden; }
+            .hero-content h1 { font-size: 1.6rem; }
+            .booking-bar { width: calc(100vw - 30px); max-width: 90vw; margin: -40px auto 20px; box-sizing: border-box; }
+            .proximity-badges { max-width: 100%; }
         }
 
         /* ==================== BOOKING MODAL STYLES ==================== */
@@ -1779,8 +1878,6 @@
             background: rgba(46, 139, 87, 0.05);
         }
 
-        .checkbox-label {
-
         .checkbox-label a:hover {
             text-decoration: underline;
         }
@@ -2020,7 +2117,7 @@
             "availableLanguage": "en"
         },
         "url": "https://nomadshideaway.com",
-        "image": "https://nomadshideaway.com/img/nomads_24.jpg",
+        "image": "https://nomadshideaway.com/img/nomads_24.webp",
         "priceRange": "$$",
         "amenities": [
             "Free Wi-Fi",
@@ -2059,7 +2156,7 @@
         "@context": "https://schema.org/",
         "@type": "LocalBusiness",
         "name": "Nomads Hideaway",
-        "image": "https://nomadshideaway.com/img/nomads_24.jpg",
+        "image": "https://nomadshideaway.com/img/nomads_24.webp",
         "description": "Eco-friendly garden villa accommodation in Matara, Southern Sri Lanka",
         "address": {
             "@type": "PostalAddress",
@@ -2106,7 +2203,7 @@
 
     <header class="nav-bar">
         <a href="index.html" class="nav-logo">
-            <img src="img/logo.png" style="height: 35px; width: auto;" alt="Logo" onerror="this.style.display='none'"> 
+            <img src="img/logo.webp" style="height: 35px; width: auto;" alt="Logo" onerror="this.style.display='none'"> 
             <span>Nomads Hideaway</span>
         </a>
         <div class="hamburger" onclick="toggleMenu()">
@@ -2183,20 +2280,19 @@
         <h2 style="text-align: center;">Experience the Villa</h2>
         <div class="carousel-container">
             <div class="carousel-wrapper">
-                <div class="carousel-slide" style="background-image: url('img/nomads_2.jpg');" onclick="openLightbox('img/nomads_2.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_4.jpg');" onclick="openLightbox('img/nomads_4.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_5.jpg');" onclick="openLightbox('img/nomads_5.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_6.jpg');" onclick="openLightbox('img/nomads_6.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_7.jpg');" onclick="openLightbox('img/nomads_7.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_8.jpg');" onclick="openLightbox('img/nomads_8.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_9.jpg');" onclick="openLightbox('img/nomads_9.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_10.jpg');" onclick="openLightbox('img/nomads_10.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_15.jpg');" onclick="openLightbox('img/nomads_15.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_16.jpg');" onclick="openLightbox('img/nomads_16.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_18.jpg');" onclick="openLightbox('img/nomads_18.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_19.jpg');" onclick="openLightbox('img/nomads_19.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_20.jpg');" onclick="openLightbox('img/nomads_20.jpg')"></div>
-                <div class="carousel-slide" style="background-image: url('img/nomads_24.jpg');" onclick="openLightbox('img/nomads_24.jpg')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_2.webp');" onclick="openLightbox('img/nomads_2.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_4.webp');" onclick="openLightbox('img/nomads_4.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_5.webp');" onclick="openLightbox('img/nomads_5.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_7.webp');" onclick="openLightbox('img/nomads_7.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_8.webp');" onclick="openLightbox('img/nomads_8.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_9.webp');" onclick="openLightbox('img/nomads_9.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_10.webp');" onclick="openLightbox('img/nomads_10.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_15.webp');" onclick="openLightbox('img/nomads_15.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_16.webp');" onclick="openLightbox('img/nomads_16.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_18.webp');" onclick="openLightbox('img/nomads_18.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_19.webp');" onclick="openLightbox('img/nomads_19.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_20.webp');" onclick="openLightbox('img/nomads_20.webp')"></div>
+                <div class="carousel-slide" style="background-image: url('img/nomads_24.webp');" onclick="openLightbox('img/nomads_24.webp')"></div>
             </div>
             <button class="carousel-btn carousel-prev" onclick="prevSlide()"><i data-lucide="chevron-left" size="32"></i></button>
             <button class="carousel-btn carousel-next" onclick="nextSlide()"><i data-lucide="chevron-right" size="32"></i></button>
@@ -2215,7 +2311,7 @@
     <section class="owners-section" id="owners">
         <div class="villa-content">
             <div class="villa-image-container">
-                <img src="img/nomads_6.jpg" alt="Nomads Hideaway Villa" onerror="handleImageError(this)">
+                <img src="img/nomads_6.webp" alt="Nomads Hideaway Villa" onerror="handleImageError(this)">
                 <div class="villa-overlay-text">Lionel & Priyanka</div>
                 
                 <div class="partner-logos-overlay">
@@ -2228,7 +2324,7 @@
                         </div>
                     </div>
                     <div class="partner-logo-tooltip">
-                        <img src="img/MSCo_logs.png" alt="Matara Spice" onerror="handleImageError(this)">
+                        <img src="img/MSCo_logs.webp" alt="Matara Spice" onerror="handleImageError(this)">
                         <div class="tooltip">
                             <h4>Matara Spice Co.</h4>
                             <p>Premium Ceylon cinnamon and authentic Sri Lankan spices from family-owned fields.</p>
@@ -2238,13 +2334,14 @@
                 </div>
 
                 <div class="hosts-avatar">
-                    <img src="img/ammanthaththa.jpg" alt="Lionel & Priyanka" onerror="handleImageError(this)">
-                    <div class="tooltip">
-                        <span class="close-hosts-overlay">×</span>
-                        <h4>Meet Your Hosts</h4>
-                        <p><strong>Lionel</strong> (Retired Banker) & <strong>Priyanka</strong> (English Teacher)</p>
-                        <p style="font-size: 0.85rem; margin-top: 8px;">Superhost on Airbnb. Kind, humble & full of Sri Lankan hospitality—the heart of Nomads Hideaway.</p>
-                    </div>
+                    <img src="img/ammanthaththa.webp" alt="Lionel & Priyanka" onerror="handleImageError(this)">
+                </div>
+
+                <div class="hosts-tooltip tooltip">
+                    <span class="close-hosts-overlay">×</span>
+                    <h4>Meet Your Hosts</h4>
+                    <p><strong>Lionel</strong> (Retired Banker) & <strong>Priyanka</strong> (English Teacher)</p>
+                    <p style="font-size: 0.85rem; margin-top: 8px;">Superhost on Airbnb. Kind, humble & full of Sri Lankan hospitality—the heart of Nomads Hideaway.</p>
                 </div>
             </div>
             <div class="villa-info">
@@ -2278,7 +2375,7 @@
         <p style="text-align: center; color: #666; margin-bottom: 40px;">Wake up, grab a bike, and pick your vibe.</p>
         <div class="beach-grid">
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/polhena-beach-sri-lanka.webp');">
                     <span class="distance-tag">3 KM (10 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2287,7 +2384,7 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/doctor.webp');">
                     <span class="distance-tag">4 KM (12 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2296,7 +2393,7 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/medawatta-beach-near.webp');">
                     <span class="distance-tag">6 KM (15 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2305,7 +2402,7 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/mirissa.webp');">
                     <span class="distance-tag">10 KM (20 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2314,7 +2411,7 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/weligama.webp');">
                     <span class="distance-tag">15 KM (25 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2323,7 +2420,7 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/hiriketiya.webp');">
                     <span class="distance-tag">20 KM (35 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2332,7 +2429,7 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/matara-beach.webp');">
                     <span class="distance-tag">2 KM (5 Mins)</span>
                 </div>
                 <div class="beach-content">
@@ -2341,21 +2438,21 @@
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=600&auto=format&fit=crop');">
-                    <span class="distance-tag">25 KM (40 Mins)</span>
+                <div class="beach-img" style="background-image: url('img/places/nilwala.webp');">
+                    <span class="distance-tag">2 KM (5 Mins)</span>
                 </div>
                 <div class="beach-content">
-                    <h3>Talalla Beach</h3>
-                    <p>A quiet and secluded beach with dramatic cliff views. Perfect for those seeking peace and pristine natural beauty.</p>
+                    <h3>Nilwala River Safari</h3>
+                    <p>Spot exotic birds and crocodiles in their natural habitat as you glide through the lush mangroves of the Nilwala River.</p>
                 </div>
             </div>
             <div class="beach-card">
-                <div class="beach-img" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&auto=format&fit=crop');">
+                <div class="beach-img" style="background-image: url('img/places/dondra.webp');">
                     <span class="distance-tag">8 KM (18 Mins)</span>
                 </div>
                 <div class="beach-content">
-                    <h3>Duwili Ulpatha Beach</h3>
-                    <p>A lesser-known pristine beach with golden sand and calm waters. Ideal for swimming and beach picnics away from tourists.</p>
+                    <h3>Dondra Light House & Beach</h3>
+                    <p>Soak in panoramic ocean views where the land ends, featuring a stunning white lighthouse, golden shores, and the endless Indian Ocean.</p>
                 </div>
             </div>
         </div>
@@ -2430,7 +2527,6 @@
                     
                     <div id="availability-summary" style="display:none;" class="availability-details">
                         <p><strong>Nights:</strong> <span id="wizard-nights"></span></p>
-                        <p><strong>Villa Base Price:</strong> <span id="wizard-base-price"></span>/night</p>
                     </div>
                     
                     <button class="btn btn-primary" id="wizard-check-btn" onclick="bookingSystem.modal.recheckAvailability()" style="width:100%; margin-top:10px;">
@@ -2471,15 +2567,15 @@
                 </div>
                 
                 <div class="booking-form-section">
-                    <h3>Pets</h3>
+                    <h3>Pets (Please contact us via Whatsapp; 1-week before check-in; Pay-At-Property)</h3>
                     <div class="pets-selector">
-                        <label id="wizard-pets-label" style="display: block; margin-bottom: 8px; font-weight: 500;">Pets (Max 2)</label>
+                        <label id="wizard-pets-label" style="display: block; margin-bottom: 8px; font-weight: 500;">Pets</label>
                         <div id="wizard-pets-options"></div>
                     </div>
                 </div>
                 
                 <div class="booking-form-section">
-                    <h3>Vehicle Rental (Optional)</h3>
+                    <h3>Vehicle Rental (deposit free; in partner with <a href="https://ridexhub.com/" target="_blank" rel="noopener noreferrer" style="color: var(--mango); text-decoration: underline;">ridexhub.com</a>)</h3>
                     <div class="vehicle-selector" id="wizard-vehicle-options">
                         <!-- Populated by JS -->
                     </div>
@@ -2507,12 +2603,12 @@
                 <div class="payment-methods-grid">
                     <button 
                         class="payment-method-btn" 
-                        onclick="bookingSystem.payment.selectMethod('stripe')"
-                        id="payment-stripe"
+                        onclick="bookingSystem.payment.selectMethod('yourrentals')"
+                        id="payment-yourrentals"
                     >
                         <div class="payment-icon">💳</div>
-                        <div class="payment-name">Card Payment</div>
-                        <div class="payment-desc">Visa, Mastercard, Amex</div>
+                        <div class="payment-name">Credit Card</div>
+                        <div class="payment-desc">Pay via Your.Rentals</div>
                     </button>
                     
                     <button 
@@ -2522,7 +2618,7 @@
                     >
                         <div class="payment-icon">💬</div>
                         <div class="payment-name">Book via WhatsApp</div>
-                        <div class="payment-desc">Finalize with host</div>
+                        <div class="payment-desc">Other payment methods</div>
                     </button>
                 </div>
                 
@@ -2533,7 +2629,7 @@
                     </select>
                 </div>
                 
-                <div class="total-price-display">
+                <div class="total-price-display" style="display:none;">
                     <span>Total Amount:</span>
                     <span id="total-amount" class="amount">$0</span>
                 </div>
@@ -2873,9 +2969,10 @@
 
         function initInteractions() {
             // Hosts Overlay logic
+            // Hosts Tooltip (Center in Image Container)
             const hostsAvatar = document.querySelector('.hosts-avatar');
-            const hostsTooltip = hostsAvatar ? hostsAvatar.querySelector('.tooltip') : null;
-            const closeHosts = hostsAvatar ? hostsAvatar.querySelector('.close-hosts-overlay') : null;
+            const hostsTooltip = document.querySelector('.hosts-tooltip');
+            const closeHosts = hostsTooltip ? hostsTooltip.querySelector('.close-hosts-overlay') : null;
 
             if (hostsAvatar && hostsTooltip) {
                 hostsAvatar.addEventListener('click', (e) => {
